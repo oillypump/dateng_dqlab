@@ -100,3 +100,24 @@ Ukuran dataframe retail_raw sebelum dan setelah dibuang outliers pada kolom quan
 ![dc](../../../pict/outliers4.png)
 
 Note: Langsung di-submit saja ya tanpa di-run :)
+
+## Tugas Praktek
+Setelah berhasil mengatasi missing value tadi, aku memutuskan untuk mencoba menemukan sejumlah outliers menggunakan IQR. Dengan begitu, aku bisa mengetahui berapa IQR dari variabel item_price. 
+
+Caranya dengan mengetikkan bagian yang kosong pada live code editor. 
+
+## Deduplikasi Data
+Duplikasi data merupakan data dengan kondisi pada row-row tertentu memiliki kesamaan data di seluruh kolomnya. Tentunya ada data yang duplikat dalam dataset yang dimiliki. Kondisi duplikasi harus diatasi dengan jalan mengeliminir baris yang mengalami duplikasi, sehingga proses ini dikenal dengan deduplikasi.
+
+Untuk mengecek duplikasi data:
+
+![dc](../../../pict/deduplikasi_data.png)
+
+Syntax untuk membuang duplikasi:
+
+![dc](../../../pict/deduplikasi_data2.png)
+
+## Tugas Praktek
+Terakhir lagi menuju selesai! Aku tinggal membuang duplikasi data dari dataset retail_raw.
+
+Aku akan melengkapi kode pada live code editor berikut. 
