@@ -1,12 +1,60 @@
-# table of content
+# Syllabus
 [1. Introduction to Pandas](#introduction-to-pandas)
-- [A. Pendahuluan](#pendahuluan)
-- [B. Memanggil Library](#memanggil-library-pandas)
+- [Pendahuluan](#pendahuluan)
+- [Memanggil Library Pandas](#memanggil-library-pandas)
+- [DataFrame & Series](#dataframe--series)
+- [Atribut DataFrame & Series - Part 1](#atribut-dataframe--series---part-1)
+- [Atribut DataFrame & Series - Part 2](#atribut-dataframe--series---part-2)
+- [Atribut DataFrame & Series - Part 3](#atribut-dataframe--series---part-3)
+- [Quiz](#quiz)
+- [Creating Series & Dataframe from List](#creating-series--dataframe-from-list)
+- [Creating Series & Dataframe from Dictionary](#creating-series--dataframe-from-dictionary)
+- [Creating Series & Dataframe from Numpy Array](#creating-series--dataframe-from-numpy-array)
+- [Quiz](#quiz-1)
 
 [2. Dataset I/O](#dataset-io)
 - [Pendahuluan](#pendahuluan-1)
+- [Read Dataset - CSV dan TSV](#read-dataset---csv-dan-tsv)
+- [Read Dataset - Excel](#read-dataset---excel)
+- [Read Dataset - JSON](#read-dataset---json)
+- [Read Dataset - SQL](#read-dataset---sql)
+- [Read Dataset - Google BigQuery](#read-dataset---google-bigquery)
+- [Write Dataset](#write-dataset)
+- [Head & Tail](#head--tail)
+- [Quiz](#quiz-2)
 
 [3. Indexing, Slicing and Transforming](#indexing-slicing-dan-transforming)
+- [Pendahuluan](#pendahuluan-2)
+- [Indexing - Part 1](#indexing---part-1)
+- [Indexing - Part 2](#indexing---part-2)
+- [Indexing - Part 3](#indexing---part-3)
+- [Indexing - Part 4](#indexing---part-4)
+- [Indexing - Part 5](#indexing---part-5)
+- [Quiz](#quiz-3)
+- [Slicing - Part 1](#slicing---part-1)
+- [Slicing - Part 2](#slicing---part-2)
+- [Quiz](#quiz-4)
+- [Transforming - Part 1](#transforming---part-1)
+- [Transforming - Part 2](#transforming---part-2)
+- [Transforming - Part 3](#transforming---part-3)
+- [Transforming - Part 4](#transforming---part-4)
+- [Penutup dari Andra](#penutup-dari-andra)
+
+[4. Handling Missing Values](#handling-missing-values)
+- [Pendahuluan](#pendahuluan-3)
+- [Inspeksi Missing Value](#inspeksi-missing-value)
+- [Treatment untuk Missing Value - Part 1](#treatment-untuk-missing-value---part-1)
+- [Treatment untuk Missing Value - Part 2](#treatment-untuk-missing-value---part-2)
+- [Treatment untuk Missing Value - Part 3](#treatment-untuk-missing-value---part-3)
+- [Treatment untuk Missing Value - Part 4](#treatment-untuk-missing-value---part-4)
+- [Treatment untuk Missing Value - Part 5](#treatment-untuk-missing-value---part-5)
+- [Quiz](#quiz-5)
+
+[5. Mini Project](#mini-project)
+- [Pendahuluan](#pendahuluan-4)
+- [Project dari Andra](#project-dari-andra)
+- [Evaluasi Andra untuk Project yang Telah Disubmit](#evaluasi-andra-untuk-project-yang-telah-disubmit)
+- [Hasil Belajarku](#hasil-belajarku)
 
 # Introduction to Pandas #
 
@@ -678,15 +726,15 @@ Ketika code print ```(df_week.index.names)``` ditulis kembali dan kemudian dieks
 # Handling Missing Values
 ## Pendahuluan
 ## Inspeksi Missing Value
-## Treatment untuk Missing Valua - Part 1
-## Treatment untuk Missing Valua - Part 2
-## Treatment untuk Missing Valua - Part 3
-## Treatment untuk Missing Valua - Part 4
-## Treatment untuk Missing Valua - Part 5
+## Treatment untuk Missing Value - Part 1
+## Treatment untuk Missing Value - Part 2
+## Treatment untuk Missing Value - Part 3
+## Treatment untuk Missing Value - Part 4
+## Treatment untuk Missing Value - Part 5
 ## Quiz
 
 # Mini Project
 ## Pendahuluan
 ## Project dari Andra
 ## Evaluasi Andra untuk Project yang Telah Disubmit
-## Hasil Belajarku :)
+## Hasil Belajarku
