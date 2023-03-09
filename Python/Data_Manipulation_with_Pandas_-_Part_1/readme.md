@@ -501,11 +501,161 @@ Seperti biasa, Andra ingin memastikan proses belajarku berjalan lancar. Tapi, mu
 Mataku berbinar. Aku tak akan melewatkan kesempatan ini. Aku pun menggeser bangku agar lebih dekat dengan Andra yang siap menampilkan beberapa contoh manipulasi data, terutama membuat index, seperti yang dijelaskan selanjutnya.
 
 ## Indexing - Part 1
+Index merupakan key identifier dari tiap row/column untuk Series atau Dataframe (sifatnya tidak mutable untuk masing-masing value tapi bisa diganti untuk semua value sekaligus).
+
+Jika tidak disediakan, pandas akan membuat kolom index default secara otomatis sebagai bilangan bulat (integer) dari 0 sampai range jumlah baris data tersebut.
+
+Kolom index dapat terdiri dari:
+
+satu kolom (single index), atau
+multiple kolom (disebut dengan hierarchical indexing).
+Index dengan multiple kolom ini terjadi karena unique identifier tidak dapat dicapai hanya dengan set index di 1 kolom saja sehingga membutuhkan beberapa kolom yang menjadikan tiap row menjadi unique.
+
 ## Indexing - Part 2
+Secara default setelah suatu dataframe dibaca dari file dengan format tertentu, index-nya merupakan single index.
+
+Pada sub bab ini akan mencetak index dan kolom yang dimiliki oleh file "https://storage.googleapis.com/dqlab-dataset/sample_csv.csv". Untuk menentukan index dan kolom yang dimiliki oleh dataset yang telah dinyatakan sebagai sebuah dataframe pandas dapat dilakukan dengan menggunakan atribut .index dan .columns.
+
+Untuk lebih jelasnya diberikan oleh kode yang ditampilkan berikut ini:
+
+![idx](../../pict/indexing2_1.png)
+
+Jika dijalankan dengan menekan tombol  maka akan menghasilkan output seperti berikut di console untuk masing-masing indeks dan kolom yang dimiliki oleh dataframe df.
+
+![idx](../../pict/indexing2_2.png)
+
+Tugas praktek:
+
+Pada code editor kamu lihat kode-kode yang tidak lengkap. Tugas sekarang adalah mengganti tanda _ _ _ di code editor dengan yang sesuai seperti yang diberikan pada contoh di atas. 
+
+Tampilkanlah index dan kolom data teratas dari file TSV "https://storage.googleapis.com/dqlab-dataset/sample_tsv.tsv" yang telah dibaca!
+
+Jika kode yang dituliskan telah benar dan kemudian tombol ditekan, maka hasil berikut yang akan kamu peroleh di console.
+
+![idx](../../pict/indexing2_3.png)
+
 ## Indexing - Part 3
+Di sub bab sebelumnya telah dibahas terkait single index, tentunya pada sub bab ini akan bahas multi index atau disebut juga dengan hierarchical indexing.
+
+Untuk membuat multi index (hierarchical indexing) dengan pandas diperlukan kolom-kolom mana saja yang perlu disusun agar index dari dataframe menjadi sebuah hirarki yang kemudian dapat dikenali.
+
+Pada sub bab sebelumnya telah diberikan nama-nama kolom dari dataframe yang telah dibaca, yaitu:
+
+![idx](../../pict/indexing3_1.png)
+
+dengan output
+
+![idx](../../pict/indexing3_2.png)
+
+Selanjutnya akan membuat multi index dengan menggunakan kolom 'order_id', 'customer_id', 'product_id', dan 'order_date' dengan menggunakan method .set_index(). Mari perhatikan contoh kode yang diberikan berikut ini:
+
+![idx](../../pict/indexing3_3.png)
+
+berikut hasil tampilan dataframe df_x-nya:
+
+![idx](../../pict/indexing3_4.png)
+
+Untuk melihat multi index yang telah diset dapat dilakukan dengan:
+
+![idx](../../pict/indexing3_5.png)
+
+yang memberikan output:
+
+![idx](../../pict/indexing3_6.png)
+
+Perlu diketahui bahwa kumpulan index dari multi index adalah list dari banyak tuples, tuples-nya merupakan kombinasi yang ada dari gabungan index-index tersebut. Dari multi index tersebut juga terdapat atribut levels yang menunjukkan urutan index, dalam case ini 'order_id' > 'customer_id' > 'product_id' > 'order_date'.
+
+![idx](../../pict/indexing3_7.png)
+
+yang menghasilkan output berupa:
+
+![idx](../../pict/indexing3_8.png)
+
+Tugas praktek:
+
+Pada code editor dapat dilihat kode-kode yang tidak lengkap. Tugas sekarang adalah mengganti tanda _ _ _ di code editor dengan yang sesuai seperti yang diberikan pada contoh di atas. 
+
+Tampilkanlah multi index dari file TSV "sample_tsv.tsv" yang telah dibaca berupa nama dan level index-nya.
+
+Notes :
+
+Dataset : https://storage.googleapis.com/dqlab-dataset/sample_tsv.tsv
+
+Kolom yang menjadi index-nya yaitu 'order_date', 'city', dan 'customer_id'!
+
+Jika di code editor telah dengan benar ditulis kodenya dan kemudian setelah menekan tombol , maka akan memperoleh hasil berikut di console:
+![idx](../../pict/indexing3_8.png)
+
 ## Indexing - Part 4
+Terdapat beberapa cara untuk membuat index, salah satunya adalah seperti yang telah dilakukan pada sub bab sebelumnya dengan menggunakan method .set_index().
+
+Di sub bab ini akan menggunakan assignment untuk menset index dari suatu dataframe. Untuk itu file "sample_excel.xlsx" yang digunakan. Perhatikan code berikut!
+
+![idx](../../pict/indexing4_1.png)
+
+Jika dijalankan dengan mengklik tombol  hasilnya adalah sebagai berikut:
+
+![idx](../../pict/indexing4_2.png)
+
+Note:
+
+Cara yang ditunjukkan oleh baris ketujuh (ke-7) pada code editor di atas hanya berlaku jika index yang di-assign tersebut memiliki panjang yang sama dengan jumlah baris dari dataframe.
+Jika ingin kembalikan dataframe ke index default-nya yaitu dari 0 s/d jumlah baris data - 1, maka dapat menggunakan method .reset_index(drop=True), argument drop=True bertujuan untuk menghapus index lama. 
+ 
+Tugas praktek:
+
+Pada code editor dapat dilihat kode-kode yang tidak lengkap. Tugas sekarang adalah mengganti tanda _ _ _ di code editor dengan yang sesuai. 
+
+Baca kembali file TSV "sample_tsv.tsv" hanya untuk 10 baris pertama. Set index-nya dengan menggunakan nama "Pesanan ke-i" i adalah bilangan bulat dari 1 sampai dengan jumlah baris (10 baris data).
+
+Notes :
+
+Dataset : https://storage.googleapis.com/dqlab-dataset/sample_tsv.tsv
+
+Jika berhasil dijalankan kodenya maka akan tampil hasil berikut:
+![idx](../../pict/indexing4_3.png)
+
 ## Indexing - Part 5
+Jika file yang akan dibaca melalui penggunaan library pandas dapat di-preview terlebih dahulu struktur datanya maka melalui fungsi yang ditujukan untuk membaca file dapat diset mana kolom yang akan dijadikan index.
+
+Fitur ini telah dimiliki oleh setiap fungsi yang digunakan dalam membaca data dengan pandas, yaitu penggunaan argumen index_col pada fungsi yang dimaksud. Untuk jelasnya dapat diperhatikan pada kode berikut ini.
+
+![idx](../../pict/indexing5_1.png)
+
+Dari dataset sample_csv.csv, sample_tsv.tsv, atau sample_excel.xlsx sudah tahu bahwa kolom dataset adalah 'order_id'; 'order_date'; 'customer_id'; 'city'; 'province'; 'product_id'; 'brand'; 'quantity'; and 'item_price'. Sehingga kode di atas digunakan langsung kolom 'order_date' pada saat membaca file-nya.
+
+Jika dijalankan dengan mengklik tombol  maka akan menghasilkan output berikut di console.
+
+![idx](../../pict/indexing5_2.png)
+
+Terlihat bahwa kolom order_date sudah jadi index, dan tentunya jumlah kolom dataframe berkurang satu, yaitu menjadi delapan kolom.
+
+Tugas praktek:
+
+Pada code editor dapat dilihat kode-kode yang tidak lengkap. Tugas sekarang adalah mengganti tanda _ _ _ di code editor dengan yang sesuai.  
+
+Baca kembali file TSV "sample_tsv.tsv" dan set lah kolom "order_date" dan "order_id" sebagai index_col-nya dan cetaklah dataframe untuk delapan baris pertama. 
+
+Notes : 
+
+Dataset : https://storage.googleapis.com/dqlab-dataset/sample_tsv.tsv
+
+Jika berhasil dijalankan kodenya maka akan tampil hasil berikut:
+![idx](../../pict/indexing5_3.png)
+
 ## Quiz
+Diberikan dataframe
+```
+df_week = pd.DataFrame({'day_number':[1,2,3,4,5,6,7],
+                        'week_type':['weekday' for i in range(5)] + ['weekend' for i in range(2)]
+                       })
+df_week_ix = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+df_week.index = [df_week_ix, df_week['day_number'].to_list()]
+df_week.index.names = ['name','num']
+```
+
+Ketika code print ```(df_week.index.names)``` ditulis kembali dan kemudian dieksekusi, apakah yang akan dihasilkan melaluiconsole?
+
 ## Slicing - Part 1
 ## Slicing - Part 2
 ## Quiz

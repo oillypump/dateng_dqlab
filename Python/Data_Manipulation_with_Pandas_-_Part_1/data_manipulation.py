@@ -193,17 +193,58 @@ print("Tiga data teratas:\n", df.head(3))
 print("Tiga data terbawah:\n", df.tail(3))
 
 
-
 ## Quiz
-
 # Indexing, Slicing, dan Transforming
-
 ## Pendahuluan
 ## Indexing - Part 1
+
+
+
 ## Indexing - Part 2
+import pandas as pd
+# Baca file TSV sample_tsv.tsv
+df = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/sample_tsv.tsv", sep="\t")
+# Index dari df
+print("Index:", df.index)
+# Column dari df
+print("Columns:", df.columns)
+
+
+
 ## Indexing - Part 3
+import pandas as pd
+# Baca file TSV sample_tsv.tsv
+df = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/sample_tsv.tsv", sep="\t")
+# Set multi index df
+df_x = df.set_index(['order_date', 'city', 'customer_id'])
+# Print nama dan level dari multi index
+for name, level in zip(df_x.index.names, df_x.index.levels):
+    print(name,':',level)
+
+
+
 ## Indexing - Part 4
+import pandas as pd
+# Baca file sample_tsv.tsv untuk 10 baris pertama saja
+df = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/sample_tsv.tsv", sep="\t", nrows=10)
+# Cetak data frame awal
+print("Dataframe awal:\n", df)
+# Set index baru
+df.index = ["Pesanan ke-" + str(i) for i in range(1, 11)]
+# Cetak data frame dengan index baru
+print("Dataframe dengan index baru:\n", df)
+
+
+
 ## Indexing - Part 5
+import pandas as pd
+# Baca file sample_tsv.tsv dan set lah index_col sesuai instruksi
+df = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/sample_tsv.tsv", sep="\t", index_col=['order_date','order_id'])
+# Cetak data frame untuk 8 data teratas
+print("Dataframe:\n", df.head(8))
+
+
+
 ## Quiz
 ## Slicing - Part 1
 ## Slicing - Part 2
