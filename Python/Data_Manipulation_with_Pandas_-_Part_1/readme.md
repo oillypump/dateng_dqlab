@@ -1,3 +1,13 @@
+# table of content
+[1. Introduction to Pandas](#introduction-to-pandas)
+- [A. Pendahuluan](#pendahuluan)
+- [B. Memanggil Library](#memanggil-library-pandas)
+
+[2. Dataset I/O](#dataset-io)
+- [Pendahuluan](#pendahuluan-1)
+
+[3. Indexing, Slicing and Transforming](#indexing-slicing-dan-transforming)
+
 # Introduction to Pandas #
 
 ## Pendahuluan
