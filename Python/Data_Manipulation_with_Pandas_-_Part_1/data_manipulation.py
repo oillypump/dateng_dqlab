@@ -2,6 +2,8 @@
 import pandas as pd
 import numpy as np
 
+
+
 ## DataFrame & Series
 import pandas as pd
 # Series
@@ -16,6 +18,7 @@ matrix = [[1,2,3],
 matrix_list = pd.DataFrame(matrix)
 print("DataFrame:")
 print(matrix_list)
+
 
 
 ## Atribut DataFrame & Series - Part 1
@@ -43,6 +46,8 @@ print("\n[4] method .astype()")
 print("    Konversi number_list ke str:", number_list.astype("str"))
 print("    Konversi matrix_list ke str:", matrix_list.astype("str"))
 
+
+
 ## Atribut DataFrame & Series - Part 2
 import pandas as pd
 # Series
@@ -64,6 +69,8 @@ print(number_list.to_list())
 # [7] attribute .unique()
 print("[7] attribute .unique()")
 print(number_list.unique())
+
+
 
 ## Atribut DataFrame & Series - Part 3
 import pandas as pd
@@ -90,6 +97,8 @@ print("[11] attribute .iloc")
 print("    iloc[0:1] pada number_list:", number_list.iloc[0:1])
 print("    iloc[0:1] pada matrix_list:", matrix_list.iloc[0:1])	
 
+
+
 ## Creating Series & Dataframe from List
 import pandas as pd
 # Creating series from list
@@ -106,6 +115,8 @@ cols = ['float','char','obj','char']
 ex_df = pd.DataFrame(ex_list_of_list, index=index, columns=cols)
 print(ex_df)
 
+
+
 ## Creating Series & Dataframe from Dictionary
 import pandas as pd
 # Creating series from dictionary
@@ -121,6 +132,8 @@ df_series = {'1':['a','b','c'],
 ex_df = pd.DataFrame(df_series)
 print(ex_df)
 
+
+
 ## Creating Series & Dataframe from Numpy Array
 import pandas as pd
 import numpy as np
@@ -134,3 +147,85 @@ arr_df = np.array([[1,2,3,5],
                    ['a','b','c',10]])
 ex_df = pd.DataFrame(arr_df)
 print(ex_df)
+
+
+
+## Read Dataset - CSV dan TSV
+import pandas as pd
+# File CSV
+df_csv = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/sample_csv.csv")
+print(df_csv.head(3)) # Menampilkan 3 data teratas
+# File TSV
+df_tsv = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/sample_tsv.tsv", sep='\t')
+print(df_tsv.head(3)) # Menampilkan 3 data teratas
+
+
+
+## Read Dataset - Excel
+import pandas as pd
+# File xlsx dengan data di sheet "test"
+df_excel = pd.read_excel("https://storage.googleapis.com/dqlab-dataset/sample_excel.xlsx", sheet_name="test")
+print(df_excel.head(4)) # Menampilkan 4 data teratas
+
+
+
+## Read Dataset - JSON
+import pandas as pd
+# File JSON
+url = "https://storage.googleapis.com/dqlab-dataset/covid2019-api-herokuapp-v2.json"
+df_json = pd.read_json(url)
+print(df_json.head(10)) # Menampilkan 10 data teratas
+
+
+
+## Read Dataset - SQL
+## Read Dataset - Google BigQuery
+## Write Dataset
+
+
+## Head & Tail
+import pandas as pd
+# Baca file sample_csv.csv
+df = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/sample_csv.csv")
+# Tampilkan 3 data teratas
+print("Tiga data teratas:\n", df.head(3))
+# Tampilkan 3 data terbawah
+print("Tiga data terbawah:\n", df.tail(3))
+
+
+
+## Quiz
+
+# Indexing, Slicing, dan Transforming
+
+## Pendahuluan
+## Indexing - Part 1
+## Indexing - Part 2
+## Indexing - Part 3
+## Indexing - Part 4
+## Indexing - Part 5
+## Quiz
+## Slicing - Part 1
+## Slicing - Part 2
+## Quiz
+## Transforming - Part 1
+## Transforming - Part 2
+## Transforming - Part 3
+## Transforming - Part 4
+## Penutup dari Andra
+
+# Handling Missing Values
+## Pendahuluan
+## Inspeksi Missing Value
+## Treatment untuk Missing Valua - Part 1
+## Treatment untuk Missing Valua - Part 2
+## Treatment untuk Missing Valua - Part 3
+## Treatment untuk Missing Valua - Part 4
+## Treatment untuk Missing Valua - Part 5
+## Quiz
+
+# Mini Project
+## Pendahuluan
+## Project dari Andra
+## Evaluasi Andra untuk Project yang Telah Disubmit
+## Hasil Belajarku :)
