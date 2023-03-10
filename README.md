@@ -19,7 +19,7 @@
 
 - [ ] [6. Data Manipulation with Pandas](Python/readme.md)
     
-    - [ ] [Data Manipulation with Pandas - Part 1](Python/Data_Manipulation_with_Pandas_-_Part_1/readme.md)
+    - [x] [Data Manipulation with Pandas - Part 1](Python/Data_Manipulation_with_Pandas_-_Part_1/readme.md)
 
     - [ ] [Data Manipulation with Pandas - Part 2](Python/Data_Manipulation_with_Pandas_-_Part_2/readme.md)
 
