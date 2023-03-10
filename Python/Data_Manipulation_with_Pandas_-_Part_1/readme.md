@@ -1,4 +1,4 @@
-# Syllabus Data Manipulation with Pandas Part 1
+# Modul Content : Manipulation with Pandas Part 1
 [1. Introduction to Pandas](#introduction-to-pandas)
 - [Pendahuluan](#pendahuluan)
 - [Memanggil Library Pandas](#memanggil-library-pandas)
@@ -900,20 +900,331 @@ Dataset : https://storage.googleapis.com/dqlab-dataset/sample_csv.csv
 
 
 ## Transforming - Part 4
+Di sub bab sebelumnya sudah mengetahui bahwa map hanya dapat digunakan untuk pandas series. Pada sub bab ini akan menggunakan method .applymap pada dataframe.
+
+Untuk itu perhatikan contoh berikut:
+
+![trsfrm](../../pict/transform4_1.png)
+
+Cara 1 dengan tanpa define function awalnya, langsung pake fungsi anonymous lambda x
+
+![trsfrm](../../pict/transform4_2.png)
+
+Cara 2 dengan define function
+
+![trsfrm](../../pict/transform4_4.png)
+
+Setelah dijalankan dengan menekan tombol  maka diperoleh output berikut di console.
+
+![trsfrm](../../pict/transform4_3.png)
+
+Cara 1 dan cara 2 menunjukkan bahwa keduanya menghasilkan dataframe yang sama.
+
+Tugas Praktek:
+
+Dengan cara yang sama seperti diatas buatlah matriks random ukuran 3 x 4 dengan seed random-nya 1234. Kemudian gunakan kedua cara seperti di atas untuk merubah seluruh isi dengan fungsi kuadrat x**2 + 3*x + 2.
+
+Jika kode dengan benar ditulis dan kemudian dijalankan dengan menekan tombol  diperoleh output berikut:
+
+![trsfrm](../../pict/transform4_5.png)
+
+
 ## Penutup dari Andra
 
+“Sampai di sini sudah cukup jelas, Aksara? Terutama soal manipulasi data dengan index,” ujar Andra mengonfirmasi padaku.
+
+Aku mengangguk antusias, “Iya, ini keren banget! Kayak upgrade-an dari Excel ya.”
+
+“Oke, kalau begitu kamu bisa coba mengerjakan kuisnya sebelum kita lanjut ke materi selanjutnya. Soalnya bakal ada proyek yang mau diberikan padamu berkaitan dengan Pandas ini.”
+
+Proyek? Ah, pantas saja Andra yang sibuk itu mau meluangkan waktu untuk menjelaskan panjang lebar seperti tadi. Tapi tak bisa dipungkiri, aku sedikit gugup sekaligus tertantang untuk mengetahui detail proyeknya. 	
+ 
+Klik tombol Next untuk melanjutkan.
+
 # Handling Missing Values
+
 ## Pendahuluan
+“Aksara, saya barusan kirim email lagi ya berisi link seputar handling missing values untuk Pandas. Kamu bisa belajar lebih lengkap di sana bersama isi modul.”
+
+“Siap!”
+
+Tanpa menunggu lagi, aku mengecek link yang diberikan Andra:
+
+https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html
+
 ## Inspeksi Missing Value
+
+Inspeksi Missing Value
+Value yang hilang/tidak lengkap dari dataframe akan membuat analisis atau model prediksi yang dibuat menjadi tidak akurat dan mengakibatkan keputusan salah yang diambil. Terdapat beberapa cara untuk mengatasi data yang hilang/tidak lengkap tersebut.
+
+Data COVID-19 yang akan digunakan ini diambil dari google big query, tetapi sudah disediakan datasetnya dalam format csv dengan nama https://storage.googleapis.com/dqlab-dataset/datacovid19.csv. Ini adalah studi kasus untuk meng-handle missing value. Bagaimanakah langkah-langkahnya?
+
+Di pandas data yang hilang umumnya direpresentasikan dengan NaN.
+
+Langkah pertama, harus tahu kolom mana yang terdapat data hilang dan berapa banyak dengan cara:
+
+Cara 1: menerapkan method .info() pada dataframe yang dapat diikuti dari kode berikut ini:
+
+Notes :
+
+Dataset : https://storage.googleapis.com/dqlab-dataset/datacovid19.csv
+
+![imv](../../pict/inspeksi_missing_value1.png)
+
+Output baris kode kelima:
+
+![imv](../../pict/inspeksi_missing_value2.png)
+
+Cara 2: mengetahui berapa banyak nilai hilang dari tiap kolom di dataset tersebut dengan menerapkan chaining method pada dataframe yaitu .isna().sum(). Method .isna() digunakan untuk mengecek berapa data yang bernilai NaN dan .sum() menjumlahkannya secara default untuk masing-masing kolom dataframe.
+
+Perhatikanlah kode berikut!
+
+![imv](../../pict/inspeksi_missing_value3.png)
+
+Output untuk baris kode ketujuh dan kedelapan:
+
+![imv](../../pict/inspeksi_missing_value4.png)
+
+
+Seperti kedua output di atas, artinya ada beberapa kolom yang ada null sebagian dan ada yang nilainya null semua untuk kolomnya.
+
+Tugas Praktek:
+
+Ketikkanlah kembali statement seperti yang ditunjukkan dalam kedua cara untuk mendeteksi missing value pada dataframe dengan mengisi tanda _ _ _ di code editor.
+
+Jika dijalankan dengan menekan tombol  maka akan diperoleh kedua output di atas di bagian console.
+
 ## Treatment untuk Missing Value - Part 1
+Treatment untuk Missing Value - Part 1
+Terdapat beberapa cara untuk mengatasi missing value, antara lain:
+
+dibiarkan saja,
+hapus value itu, atau
+isi value tersebut dengan value yang lain (biasanya interpolasi, mean, median, etc)
+
+Sebelum melakukan action ke missing value pada data covid diatas, sebaiknya tampilkan beberapa row teratas dari dataset itu
+
+![tms](../../pict/treatment_missing_value1.png)
+
+dan dilihat kembali jumlah missing value tiap kolomnya.
+
+![tms](../../pict/treatment_missing_value2.png)
+
+agar dapat ditelaah terlebih dahulu.
+
+Hanya kolom combine_key yang keseluruhan barisnya adalah missing value (1000 buah), sementara kolom country_region, date, dan confirmed tidak memiliki missing value. Untuk kolom lainnya terdapat beragam jumlah missing value. Apa yang dapat dilakukan?
+
+Untuk memahami mana kolom yang akan di treatment dengan tiga perlakukan di atas lihat nature dari data terlebih dahulu. Contohnya pada kolom death dan recovered jika ada yang missing value maka kemungkinan terbesarnya adalah tidak ada meninggal atau sembuh pada hari tersebut. 
+
+Untuk kolom yang seluruhnya missing yaitu combined_key dapat dibuang saja satu kolom itu karena tidak ada data yang dapat diketahui dari kolom tersebut.
+
+Sementara, kolom yang lainnya bagaimana? Misal ambil kolom province_stat, missing value-nya dapat terjadi bahwa tidak dilaporkan itu berasal dari daerah mana di negara itu. Dapat mengisi misal dengan string 'unknown' karena tahu kolom tersebut bertipe data string.
+
 ## Treatment untuk Missing Value - Part 2
+Treatment untuk Missing Value - Part 2
+Sekarang dapat menerapkan dua aksi yaitu
+
+1. Membiarkannya saja
+2. Menghapus kolom
+
+Treatment pertama (membiarkannya saja) seperti pada kolom confirmed, death, dan recovered. Akan tetapi jika tidak ada yang terkonfirmasi, meninggal dan sembuh sebenarnya dapat menukar value ini dengan angka nol. Meskipun ini lebih make sense dalam representasi datanya, tetapi untuk sub bab ini ketiga kolom tersebut diasumsikan dibiarkan memiliki nilai missing value.
+
+Treatment kedua yaitu dengan menghapus kolom, yang mana ini digunakan jika seluruh kolom dari dataset yang dipunyai semua barisnya adalah missing value. Untuk itu dapat menerapkan method .dropna() pada dataframe, bagaimana caranya?
+
+```
+nama_dataframe.dropna(axis=1, how="all")
+```
+
+Pada method .dropna() ada dua keyword argumen yang harus diisikan yaitu axis dan how. Keyword axis digunakan untuk menentukan arah dataframe yang akan dibuang angka 1 untuk menyatakan kolom (column-based) atau dapat ditulis dalam string "column". Jika digunakan angka 0 berarti itu dalam searah index (row-based) atau dapat ditulis dalam string "index".
+
+Sementara, keyword how digunakan untuk bagaimana cara membuangnya. Opsi yang dapat diterimanya (dalam string) adalah
+
+* "all" artinya jika seluruh data di satu/beberapa kolom atau di satu/beberapa baris adalah missing value.
+* "any" artinya jika memiliki 1 saja data yang hilang maka buanglah baris/kolom tersebut.
+ 
+
+Tugas Praktek:
+
+Cetaklah ukuran awal dari dataframe dengan atribut .shape pada dataframe yang telah dibaca.
+Buanglah kolom jika memiliki seluruh data adalah missing value, kemudian cetaklah ukurannya.
+Dari dataframe hasil langkah kedua buanglah baris-baris yang setidaknya memiliki satu saja missing value, dan cetak kembali ukurannya.
+Jika berhasil akan ditampilkan output-nya sebagai berikut:
+
+![tms](../../pict/treatment_missing_value2_1.png)
+
+Notes:
+
+Dataset: https://storage.googleapis.com/dqlab-dataset/datacovid19.csv
+
 ## Treatment untuk Missing Value - Part 3
+Sekarang, akan melakukan treatment ketiga untuk melakukan handle missing value pada dataframe. Treatment ini dilakukan dengan cara mengisi missing value dengan nilai lain, yang dapat berupa :
+
+* nilai statistik seperti mean atau median
+* interpolasi data
+* text tertentu
+ 
+Akan mulai pada kolom yang missing yang tipe datanya adalah berupa object. Kolom tersebut adalah province_state, karena tidak tahu secara persis province_state mana yang dimaksud, bisa menempatkan string "unknown" sebagai substitusi missing value. Meskipun keduanya berarti sama-sama tidak tahu tetapi berbeda dalam representasi datanya.
+
+Untuk melakukan hal demikian dapat menggunakan method .fillna() pada kolom dataframe yang dimaksud. Perhatikan kode berikut!
+
+![tms](../../pict/treatment_missing_value3_1.png)
+
+Jika dijalankan akan menghasilkan output berikut di console:
+
+![tms](../../pict/treatment_missing_value3_2.png)
+
+Terlihat bahwa unique value di kolom "province_state" yang semula ada nan telah berubah menjadi "unknown". 
+
+**Tugas Praktek:**
+
+Lakukanlah dengan cara yang sama dengan yang telah dicontohkan di atas, tetapi isilah missing value dengan string "unknown_province_state".
+
+Jika dituliskan dengan benar dan dijalankan dengan  maka output di console berikut akan diperoleh. 
+
+Notes :
+
+Dataset: https://storage.googleapis.com/dqlab-dataset/datacovid19.csv
+
+![tms](../../pict/treatment_missing_value3_3.png)
+
 ## Treatment untuk Missing Value - Part 4
+
+Masih melanjutkan bagaimana melakukan handle missing value tentunya dengan jalan mengganti missing value dengan nilai lainnya. Pada bab sebelumnya telah mengganti kolom bertipe objek dengan sesuatu string/teks.
+
+Dalam sub bab ini akan mengganti missing value dengan nilai statistik kolom bersangkutan, baik median atau mean (nilai rata-rata). Misalnya akan menggunakan kolom active. Dengan mengabaikan terlebih dahulu sebaran berdasarkan negara (univariate), jika mengisi dengan nilai rata-rata maka harus melihat terlebih dahulu data apakah memiliki outliers atau tidak. Jika ada outliers dari data maka menggunakan nilai tengah (median) data adalah cara yang lebih safe.
+
+Untuk itu diputuskan dengan mengecek nilai median dan nilai mean kolom active juga nilai min dan max-nya. Jika data pada kolom active terdistribusi normal maka nilai mean dan median akan hampir sama.
+
+![trtmnmsvl](../../pict/treatment_missing_value4_1.png)
+
+Terlihat data memiliki distribusi yang skewness, karena nilai mean dan median yang cukup jauh serta range data yang cukup lebar. Di sini pada kolom active data memiliki outliers. Jadi akan mengisi missing value dengan median.
+
+![trtmnmsvl](../../pict/treatment_missing_value4_2.png)
+
+Jika dijalankan dengan menekan tombol  diperoleh output:
+
+![trtmnmsvl](../../pict/treatment_missing_value4_3.png)
+
+**Tugas Praktek:**
+
+Carilah perbedaan nilai mean dan median kolom active untuk kondisi sebelum dan setelah missing value-nya diisi masing-masingnya dengan median dan mean.
+
+Jika berjalan lancar maka akan diperoleh hasil seperti berikut ini di console:
+
+![trtmnmsvl](../../pict/treatment_missing_value4_4.png)
+
+Notes:
+
+Dataset: https://storage.googleapis.com/dqlab-dataset/datacovid19.csv
+
 ## Treatment untuk Missing Value - Part 5
+
+Di bagian ini akan menggunakan teknik interpolasi dalam mengisi nilai missing value pada suatu dataset.
+
+Data yang menggunakan interpolasi untuk mengisi data yang hilang adalah time series data, yang secara default akan diisi dengan interpolasi linear.
+
+Perhatikan kode berikut:
+
+Jika dijalankan akan menghasilkan:
+
+Tugas praktek:
+
+Kerjakan kembali seperti contoh kode di atas dengan hasil output seperti yang ditujukkan berikut ini: 
+
 ## Quiz
+Bagaimana cara menghapus kolom dengan sebagian missing value?
 
 # Mini Project
 ## Pendahuluan
+“Ndra, aku sudah cukup paham dengan teorinya,” sahutku seakan memberi kode jika aku sudah siap mengerjakan proyek yang tadi dijanjikan.
+
+“Saya suka kepercayaan dirimu, Aksara. Kalau begitu, sudah siap kalau diberi proyek?” pancing Andra.
+
+Aku mengangguk mantap.
+
+“Oke, untuk proyek pertama, kamu akan melakukan ETL sebelum analisis data. Karena data yang dibutuhkan masih belum bersih, sehingga tidak bisa dilakukan analisis lebih lanjut.”
+
+Aku menyimak pemaparan dari Andra sembari memikirkan solusi untuk ETL. Tentunya bisa aku eksekusi dengan Pandas. “Baik, Ndra. Data yang dibutuhkan apa saja nantinya?”
+
+“Data untuk cabang perusahaan ritel kita, Aksara. Berarti kumpulan data bulan Januari 2019 untuk setiap kota dan provinsi, tanggal order-nya, customer, order-nya apa aja terkait brand, product, quantity dan item price-nya juga. Dan, yang terakhir adalah GMV/Gross Merchandise Volume (total price)-nya.”
+
+“Banyak banget!” gumamku dalam hati.
+
+“Saya tahu kamu pasti sudah memikirkan detlennya karena data yang dibutuhkan banyak. Jangan khawatir, saya beri tenggat waktu sampai akhir minggu ini, bukan besok. Cukup?”
+
+Aku mengangkat ibu jari, “Langsung aku cicil dari sekarang deh, Ndra.”
+
+“Baik, selamat bekerja Aksara!”
+
 ## Project dari Andra
+
+Berikut adalah isi email yang ditugaskan oleh Andra:
+
+Diberikan dataset ‘retail_raw_test.csv’
+
+1. Baca dataset
+2. Tipe data diubah menjadi tipe yang seharusnya
+    - customer_id dari string ke int64,
+    - quantity dari string ke int64,
+    - item_price dari string ke int64
+3. transform product_value supaya bentuknya seragam dengan format PXXXX, assign ke kolom baru "product_id", dan drop kolom "product_value", jika terdapat nan gantilah dengan "unknown".
+4. trasnform order_date menjadi value dengan format YYYY-mm-dd
+5. cek data hilang dari tiap kolom dan kemudian isi missing value
+    - di brand dengan "no_brand", dan
+    - cek dulu bagaimana missing value di city & province - isi missing value di city dan province dengan "unknown"
+6. create column city/province dari gabungan city & province
+7. membuat index berdasarkan city_provice, order_date, customer_id, order_id, product_id (cek index)
+8. membuat kolom "total_price" sebagai hasil perkalian quantity dengan item_price
+9. slice data hanya untuk Jan 2019
+
+Notes :
+
+Dataset :  https://storage.googleapis.com/dqlab-dataset/retail_raw_test.csv
+
+Preview akhir data:
+
+![pd](../../pict/project_dr_andra.png)
+
+
+
 ## Evaluasi Andra untuk Project yang Telah Disubmit
+Aku baru saja mengumpulkan hasil kerja dari proyek pertamaku pada Andra. Lebih cepat satu hari dari tenggat waktu yang diberikan, semoga hasilnya juga memuaskan! Doaku dalam hati.
+
+ 
+
+“Aksara, saya baru saja meninjau pekerjaanmu. Saya ada pertanyaan,” ujar Andra yang lagi-lagi sudah ada di sebelahku. Sepertinya Andra punya kemampuan teleportasi yang bisa muncul tiba-tiba.
+
+“Ada yang salah, Ndra?”
+
+ 
+
+“Saya ingin tahu alasanmu mengapa di langkah ketiga, kamu cari tahu terlebih dulu nilai null. Mengapa tidak kamu convert to string secara langsung?”
+
+“Soalnya, kalau aku cek di df.info()nya masih ada yang kosong di kolom ‘product_value’, Ndra.  Kalau aku langsung convert to string, nantinya value NaN akan berubah menjadi string ‘nan’, kemudian ketika aku pad 0 di depan dan concat dengan char ‘P’, hasilnya akan menjadi ‘P0nan’ yang aneh sekali, Ndra,” jelasku.
+
+ 
+
+“Oke. Satu lagi pertanyaanku, Aksara. Kenapa kamu memakai langkah ke-4? Mengapa tidak langsung menggunakan kolom date yang sudah ada. Bukankah format waktunya sudah ideal?”
+
+Aku merasa tanya jawab ini tampak seperti ujian apakah aku benar-benar memahami cara kerja Pandas. Aku memantapkan diri untuk memberi jawaban, “Tidak semua format datetime yang ideal pada umumnya akan ideal di dalam pandas environment. Seenggaknya harus translate dulu menjadi format yang ideal di dalam pandas sehingga pandas bisa mengenali.”
+
+ 
+
+“Great! Untuk materi dan proyek ini, kamu dinyatakan lulus, Aksara.”
+
+Mendengar apresiasi ini langsung dari Andra membuat hatiku hangat. Senang sekali rasanya!
+
 ## Hasil Belajarku
+
+Walau harus bekerja keras, aku cukup puas dengan hasil kerjaku hari ini. Aku memandangi kode final yang sudah selesai kukerjakan. Diam-diam ada perasaan bangga menyelip di benakku! YES!
+
+Akhirnya, aku telah menyelesaikan modul Data Manipulation with Pandas - Part 1. Materi-materi yang telah kupelajari dan praktikkan dalam modul ini aku telah mendapatkan pengetahuan (knowledge) dan praktek (skill) untuk:
+
+Memahami library Pandas dan interaksinya dengan numpy
+Memahami dan mempraktekkkan bagaimana membuat series dan dataframe pada pandas dari berbagai tipe data seperti list, list of list, dict, ataupun numpy array
+Memahami dan mempraktekkkan bagaimana membaca dataset dari berbagai format standar seperti csv, tsc, excel, json, sql sehingga dapat dijadikan pandas dataframe/series serta bagaimana cara menyimpannya ke format standar dataset.
+Mampu memahami dan mempraktikkan proses indexing, transformasi, dan slicing pada dataframe
+Mampu memahami dan mempraktikkan bagaimana cara melakukan handle missing value pada suatu dataframe
+Latihan dalam mengerjakan project bisnis sederhana menggunakan pandas
+
+Semangat!

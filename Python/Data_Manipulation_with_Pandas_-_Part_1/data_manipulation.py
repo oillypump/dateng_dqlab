@@ -320,20 +320,216 @@ print("Kolom brand setelah map:\n", df["brand"].head())
 
 
 ## Transforming - Part 4
-## Penutup dari Andra
+# In [1]: 
+import numpy as np
+import pandas as pd
+# number generator, set angka seed menjadi suatu angka, bisa semua angka, supaya hasil random nya selalu sama ketika kita run
+np.random.seed(1234)
+# create dataframe 3 baris dan 4 kolom dengan angka random
+df_tr = pd.DataFrame(np.random.rand(3,4))
+# Cetak dataframe
+print("Dataframe:\n", df_tr)
+# Cara 1 dengan tanpa define function awalnya, langsung pake fungsi anonymous lambda x
+df_tr1 = df_tr.applymap(lambda x: x**2 + 3*x + 2) 
+print("\nDataframe - cara 1:\n", df_tr1)
+# Cara 2 dengan define function 
+def qudratic_fun(x):
+    return x**2 + 3*x + 2
+df_tr2 = df_tr.applymap(qudratic_fun)
+print("\nDataframe - cara 2:\n", df_tr2)
 
+
+
+## Penutup dari Andra
 # Handling Missing Values
 ## Pendahuluan
-## Inspeksi Missing Value
-## Treatment untuk Missing Valua - Part 1
-## Treatment untuk Missing Valua - Part 2
-## Treatment untuk Missing Valua - Part 3
-## Treatment untuk Missing Valua - Part 4
-## Treatment untuk Missing Valua - Part 5
-## Quiz
 
+
+## Inspeksi Missing Value
+import pandas as pd
+# Baca file "https://storage.googleapis.com/dqlab-dataset/datacovid19.csv"
+df = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/datacovid19.csv")
+# Cetak info dari df
+print(df.info())
+# Cetak jumlah missing value di setiap kolom
+mv = df.isna().sum()
+print("\nJumlah missing value per kolom:\n", mv)
+
+
+
+## Treatment untuk Missing Value - Part 1
+
+
+
+## Treatment untuk Missing Value - Part 2
+import pandas as pd
+# Baca file "https://storage.googleapis.com/dqlab-dataset/datacovid19.csv"
+df = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/datacovid19.csv")
+# Cetak ukuran awal dataframe
+print("Ukuran awal df: %d baris, %d kolom." % df.shape)
+# Drop kolom yang seluruhnya missing value dan cetak ukurannya
+df = df.dropna(axis=1, how="all")
+print("Ukuran df setelah buang kolom dengan seluruh data missing: %d baris, %d kolom." % df.shape)
+# Drop baris jika ada satu saja data yang missing dan cetak ukurannya
+df = df.dropna(axis=0, how="any")
+print("Ukuran df setelah dibuang baris yang memiliki sekurangnya 1 missing value: %d baris, %d kolom." % df.shape)
+
+
+
+## Treatment untuk Missing Value - Part 3
+import pandas as pd
+# Baca file "https://storage.googleapis.com/dqlab-dataset/datacovid19.csv"
+df = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/datacovid19.csv")
+# Cetak unique value pada kolom province_state
+print("Unique value awal:\n", df["province_state"].unique())
+# Ganti missing value dengan string "unknown_province_state"
+df["province_state"] = df["province_state"].fillna("unknown_province_state")
+# Cetak kembali unique value pada kolom province_state
+print("Unique value setelah fillna:\n", df["province_state"].unique())
+
+
+
+## Treatment untuk Missing Value - Part 4
+import pandas as pd
+# Baca file "https://storage.googleapis.com/dqlab-dataset/datacovid19.csv"
+df = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/datacovid19.csv")
+# Cetak nilai mean dan median awal 
+print("Awal: mean = %f, median = %f." % (df["active"].mean(), df["active"].median()))
+# Isi missing value kolom active dengan median
+df_median = df["active"].fillna(df["active"].median())
+# Cetak nilai mean dan median awal setelah diisi dengan median
+print("Fillna median: mean = %f, median = %f." % (df_median.mean(), df_median.median()))
+# Isi missing value kolom active dengan mean
+df_mean = df["active"].fillna(df["active"].mean())
+# Cetak nilai mean dan median awal setelah diisi dengan mean
+print("Fillna mean: mean = %f, median = %f." % (df_mean.mean(), df_mean.median())) 
+
+
+
+## Treatment untuk Missing Value - Part 5
+import numpy as np
+import pandas as pd
+# Data
+ts = pd.Series({
+   "2020-01-01":9,
+   "2020-01-02":np.nan,
+   "2020-01-05":np.nan,
+   "2020-01-07":24,
+   "2020-01-10":np.nan,
+   "2020-01-12":np.nan,
+   "2020-01-15":33,
+   "2020-01-17":np.nan,
+   "2020-01-16":40,
+   "2020-01-20":45,
+   "2020-01-22":52,
+   "2020-01-25":75,
+   "2020-01-28":np.nan,
+   "2020-01-30":np.nan
+})
+# Isi missing value menggunakan interpolasi linier
+ts = ts.interpolate()
+# Cetak time series setelah interpolasi linier
+print("Setelah diisi missing valuenya:\n", ts)
+
+
+
+## Quiz
 # Mini Project
 ## Pendahuluan
+
+
+
 ## Project dari Andra
+import pandas as pd
+
+# 1. Baca dataset
+print("[1] BACA DATASET")
+df = pd.read_csv("https://storage.googleapis.com/dqlab-dataset/retail_raw_test.csv", low_memory=False)
+print("    Dataset:\n", df.head())
+print("    Info:\n", df.info())
+
+# 2. Ubah tipe data
+print("\n[2] UBAH TIPE DATA")
+df["customer_id"] = df["customer_id"].apply(lambda x: x.split("'")[1]).astype("int64")
+df["quantity"] = df["quantity"].apply(lambda x: x.split("'")[1]).astype("int64")
+df["item_price"] = df["item_price"].apply(lambda x: x.split("'")[1]).astype("int64")
+print("    Tipe data:\n", df.dtypes)
+
+# 3. Transform "product_value" supaya bentuknya seragam dengan format "PXXXX", assign ke kolom baru "product_id", dan drop kolom "product_value", jika terdapat nan gantilah dengan "unknown"
+print("\n[3] TRANSFORM product_value MENJADI product_id")
+# Buat fungsi
+import math
+def impute_product_value(val):
+    if math.isnan(val):
+        return "unknown"
+    else:
+        return 'P' + '{:0>4}'.format(str(val).split('.')[0])
+# Buat kolom "product_id"
+df["product_id"] = df["product_value"].apply(lambda x: impute_product_value(x))
+# Hapus kolom "product_value"
+df.drop(["product_value"], axis=1, inplace=True)
+# Cetak 5 data teratas
+print(df.head())
+
+# 4. Tranform order_date menjadi value dengan format "YYYY-mm-dd"
+print("\n[4] TRANSFORM order_date MENJADI FORMAT YYYY-mm-dd")
+months_dict = {
+   	"Jan":"01",
+	"Feb":"02",
+	"Mar":"03",
+	"Apr":"04",
+	"May":"05",
+	"Jun":"06",
+	"Jul":"07",
+	"Aug":"08",
+	"Sep":"09",
+	"Oct":"10",
+	"Nov":"11",
+	"Dec":"12"
+}
+df["order_date"] = pd.to_datetime(df["order_date"].apply(lambda x: str(x)[-4:] + "-" + months_dict[str(x)[:3]] + "-" + str(x)[4:7]))
+print(" Tipe data:\n", df.dtypes)
+
+# 5. Mengatasi data yang hilang di beberapa kolom
+print("\n[5] HANDLING MISSING VALUE")
+# Kolom "city" dan "province" masih memiliki missing value, nilai yang hilang di kedua kolom ini diisi saja dengan "unknown"
+df[["city","province"]] = df[["city","province"]].fillna("unknown")
+# Kolom brand juga masih memiliki missing value, Ganti value NaN menjadi "no_brand"
+df["brand"] = df["brand"].fillna("no_brand")
+# Cek apakah masih terdapat missing value di seluruh kolom
+print(" Info:\n", df.info())
+
+# 6. Membuat kolom baru "city/province" dengan menggabungkan kolom "city" dan kolom "province" dan delete kolom asalnya
+print("\n[6] MEMBUAT KOLOM BARU city/province")
+df["city/province"] = df["city"] + "/" + df["province"]
+# drop kolom "city" dan "province" karena telah digabungkan
+df.drop(["city","province"], axis=1, inplace=True)
+# Cetak 5 data teratas
+print(df.head())
+
+# 7. Membuat hierarchical index yang terdiri dari kolom "city/province", "order_date", "customer_id", "order_id", "product_id"
+print("\n[7] MEMBUAT HIERACHICAL INDEX")
+df = df.set_index(["city/province","order_date","customer_id","order_id","product_id"])
+# urutkanlah berdasarkan index yang baru
+df = df.sort_index()
+# Cetak 5 data teratas
+print(df.head())
+
+# 8. Membuat kolom "total_price" yang formula nya perkalian antara kolom "quantity" dan kolom "item_price"
+print("\n[8] MEMBUAT KOLOM total_price")
+df["total_price"] = df["quantity"] * df["item_price"]
+# Cetak 5 data teratas
+print(df.head())
+
+# 9. Slice dataset agar hanya terdapat data bulan Januari 2019
+print("\n[9] SLICE DATASET UNTUK BULAN JANUARI 2019 SAJA")
+idx = pd.IndexSlice
+df_jan2019 = df.loc[idx[:, "2019-01-01":"2019-01-31"],:]
+print("Dataset akhir:\n", df_jan2019)
+
+# END OF PROJECT
+
+
+
 ## Evaluasi Andra untuk Project yang Telah Disubmit
 ## Hasil Belajarku :)
