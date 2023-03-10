@@ -1,4 +1,4 @@
-# Syllabus
+# Syllabus Data Manipulation with Pandas Part 1
 [1. Introduction to Pandas](#introduction-to-pandas)
 - [Pendahuluan](#pendahuluan)
 - [Memanggil Library Pandas](#memanggil-library-pandas)
@@ -715,11 +715,190 @@ df_week.index.names = ['name','num']
 Ketika code print ```(df_week.index.names)``` ditulis kembali dan kemudian dieksekusi, apakah yang akan dihasilkan melaluiconsole?
 
 ## Slicing - Part 1
+Slicing - Part 1
+Seperti artinya slicing adalah cara untuk melakukan filter ke dataframe/series berdasarkan kriteria tertentu dari nilai kolomnya ataupun kriteria index-nya.
+
+Terdapat 2 cara paling terkenal untuk slicing dataframe, yaitu dengan menggunakan method .loc dan .iloc pada variabel bertipe pandas DataFrame/Series. Method .iloc ditujukan untuk proses slicing berdasarkan index berupa nilai integer tertentu. Akan tetapi akan lebih sering menggunakan dengan method .loc karena lebih fleksibel. 
+
+*Mari ikuti ilustrasi berikut ini.*
+
+Dataset belum dilakukan indexing, jadi slicing berdasarkan nilai kolomnya. Untuk itu "sample_csv.csv" dibaca kembali dan dipraktikkan metode .loc[] dengan mengambil tanggal 1 Januari 2019 dari kolom order_date dan product_id nya adalah P2154 dan P2556.
+
+![slicing](../../pict/slicing1_1.png)
+
+Jika kode di atas dijalankan dengan menekan  diperoleh:
+
+![slicing](../../pict/slicing1_2.png)
+
+Tugas praktek:
+
+Pada code editor dapat dilihat kode-kode yang tidak lengkap. Tugas sekarang adalah mengganti tanda _ _ _ di code editor dengan yang sesuai.  
+
+Baca kembali file TSV "sample_csv.csv" dan slice/filter-lah dataset jika customer_id adalah 18055 dan product_id-nya yaitu P0029, P0040, P0041, P0116, dan P0117. 
+
+Notes :
+
+Dataset: https://storage.googleapis.com/dqlab-dataset/sample_csv.csv
+
+Jika berhasil dijalankan kodenya maka akan tampil hasil berikut:
+
+![slicing](../../pict/slicing1_3.png)
+
 ## Slicing - Part 2
+Dalam sub bab sebelumnya telah mempelajari bagaimana melakukan slicing/filtering dataset dengan menggunakan method .loc pada kolom dataset.
+
+Sekarang, menerapkan berdasarkan index. Tentu syaratnya adalah dataset sudah dilakukan indexing terlebih dahulu melalui penerapan method .set_index 
+
+Cara 1: Gunakan method .loc seperti yang dicontohkan berikut:
+
+![slicing](../../pict/slicing2_1.png) 
+
+Output cara 1:
+
+![slicing](../../pict/slicing2_2.png) 
+
+Cara 2: Gunakan pd.IndexSlice sebagai varaibel untuk melakukan slicing index
+
+![slicing](../../pict/slicing2_3.png) 
+
+Output cara 2:
+
+![slicing](../../pict/slicing2_4.png) 
+
+Tugas praktek:
+
+Pada code editor dapat terlihat kode-kode yang tidak lengkap. Tugas kamu adalah mengganti tanda _ _ _ di code editor dengan yang sesuai.  
+
+Baca kembali file TSV "sample_csv.csv" dan set terlebih dahulu indexnya yaitu order_date, order_id, dan product_id. Kemudian slice/filter-lah dataset jika order_date adalah 2019-01-01, order_id adalah 1612339 dan product_id-nya yaitu P2154 dan P2159. Gunakanlah cara pertama.
+
+Notes :
+
+Dataset :  https://storage.googleapis.com/dqlab-dataset/sample_csv.csv
+
+Jika berhasil dijalankan kodenya maka akan tampil hasil berikut:
+![slicing](../../pict/slicing2_5.png) 
+
 ## Quiz
+Diberikan variabel
+
+```
+sample_csv = pd.read_csv('sample_csv.csv')
+sample_csv = sample_csv.set_index(['province','product_id'])
+idx = pd.IndexSlice
+```
+
+Code mana yang akan menghasilkan semua kolom, dengan filter province = ‘Sulawesi Selatan’ dan product_id dari ‘P3082’ sampai ‘P3357’?
+
+
 ## Transforming - Part 1
+Transform adalah ketika mengubah dataset yang ada menjadi entitas baru, dapat dilakukan dengan:
+
+konversi dari satu data type ke data type yang lain,
+transpose dataframe,
+atau yang lainnya.
+Hal yang biasa dilakukan pertama kali setelah data dibaca adalah mengecek tipe data di setiap kolomnya apakah sesuai dengan representasinya. Untuk itu dapat menggunakan atribut .dtypes pada dataframe yang telah kita baca tadi,
+
+```
+[nama_dataframe].dtypes 
+```
+
+Untuk konversi tipe data, secara default system akan mendeteksi data yang tidak bisa di render as date type or numeric type sebagai object yang basically string. Tidak bisa di render oleh system ini karena berbagai hal, mungkin karena formatnya asing dan tidak dikenali oleh python secara umum (misal: date type data → '2019Jan01').
+
+Data contoh tersebut tidak bisa di render karena bulannya Jan tidak bisa di translate menjadi in form of number (00-12) dan tidak ada ‘-’ di antara tahun, bulan dan harinya. Jika seluruh data pada kolom di order_date sudah tertulis dalam bentuk 'YYYY-MM-DD' maka ketika dibaca, kolom order_date sudah langsung dinyatakan bertipe data datetime.
+
+Untuk merubah kolom date_order yang sebelumnya bertipe object menjadi kolom bertipe datetime, cara pertama yang dapat dilakukan adalah menggunakan:
+```
+pd.to_datetime(argumen) 
+```
+dengan argumen adalah isi kolom dari dataframe yang akan dirubah tipe datanya, misal dalam format umum.
+```
+nama_dataframe["nama_kolom"]
+```
+Sehingga lengkapnya dapat ditulis sebagai:
+```
+nama_dataframe["nama_kolom"] = pd.to_datetime(nama_dataframe["nama_kolom"]) 
+```
+
+Tugas praktek:
+
+Ubahlah tipe data di kolom order_date yang semula bertipe objek menjadi bertipe datetime.
+
+Di code editor telah disediakan kode yang tidak lengkap, silakan diisi sesuai dengan instruksi yang diberikan. 
+
+Jika dengan benar dituliskan dan berhasil dijalankan maka output berikut yang akan diperoleh pada console.
+
+Notes :
+
+Dataset : https://storage.googleapis.com/dqlab-dataset/sample_csv.csv
+
+![trsfrm](../../pict/transform1_1.png)
+
 ## Transforming - Part 2
+Pada sub bab ini akan mengubah tipe data pada kolom dataframe yang telah dibaca menjadi tipe data float (kolom quantity) dan tipe kategori (kolom city).
+
+Secara umum, untuk mengubah ke numerik dapat menggunakan pd.to_numeric(), yaitu:
+```
+nama_dataframe["nama_kolom"] = pd.to_numeric(nama_dataframe["nama_kolom"], downcast="tipe_data_baru")
+```
+
+Sedangkan untuk menjadi suatu kolom yang dapat dinyatakan sebagai kategori dapat menggunakan method .astype() pada dataframe, yaitu
+```
+nama_dataframe["nama_kolom"] = nama_dataframe["nama_kolom"].astype("category")
+```
+
+### Tugas Praktek:
+
+Ubahlah tipe data di kolom
+
+* quantity yang semula bertipe int64 menjadi bertipe float32, dan
+* city yang semula bertipe object menjadi bertipe category
+Di code editor telah disediakan kode yang tidak lengkap, silakan diisi sesuai dengan instruksi yang diberikan. 
+
+Jika dengan benar dituliskan dan berhasil dijalankan maka output berikut yang akan kamu peroleh di console.
+
+Notes : 
+
+Dataset : https://storage.googleapis.com/dqlab-dataset/sample_csv.csv
+
+![trsfrm](../../pict/transform2_1.png)
+
+
 ## Transforming - Part 3
+Sekarang akan mempelajari teknik/cara berikutnya dalam proses transformasi suatu dataframe. Di sub bab ini akan memakai method .apply() dan .map() pada suatu dataframe.
+
+Method .apply() digunakan untuk menerapkan suatu fungsi python (yang dibuat dengan def atau anonymous dengan lambda) pada dataframe/series atau hanya kolom tertentu dari dataframe. 
+
+Berikut ini adalah contohnya yaitu akan merubah setiap baris pada kolom brand menjadi lowercase.  
+
+![trsfrm](../../pict/transform3_1.png)
+
+Jika dijalankan maka akan menghasilkan:
+
+![trsfrm](../../pict/transform3_2.png)
+
+Method .map() hanya dapat diterapkan pada series atau dataframe yang diakses satu kolom saja. Method ini digunakan untuk mensubstitusikan suatu nilai ke dalam tiap baris datanya.
+
+Mari lihat contoh yang diberikan berikut ini yang mana akan ambil huruf terakhir dari brand.
+
+![trsfrm](../../pict/transform3_3.png)
+
+Jika dijalankan maka akan menghasilkan:
+
+![trsfrm](../../pict/transform3_4.png)
+
+Tugas praktek:
+
+Kerjakanlah seperti yang diinstruksikan melalui code editor dan di code editor juga telah disediakan kode yang tidak lengkap, silakan diisi dengan yang seharusnya. Apa yang telah dicontohkan dapat dijadikan referensi.
+
+Jika kodenya tidak ada yang salah dan dijalankan dengan tombol  maka akan memperoleh hasil berikut di console.
+
+Notes :
+
+Dataset : https://storage.googleapis.com/dqlab-dataset/sample_csv.csv
+
+![trsfrm](../../pict/transform3_5.png)
+
+
 ## Transforming - Part 4
 ## Penutup dari Andra
 
