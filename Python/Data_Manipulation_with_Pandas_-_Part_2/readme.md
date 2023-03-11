@@ -20,6 +20,17 @@
 - [Stack & Unstack - Part 2](#stack--unstack---part-2) 
 - [Quiz](#quiz-1)
 
+[3. Aggregation & GroupBy](#aggregation--groupby)
+- [Pendahuluan](#pendahuluan-2)
+- [Review Inspeksi Data](#review-inspeksi-data)
+- [Groupby dan Aggregasi dengan Fungsi Statistik Dasar - Part 1](#groupby-dan-aggregasi-dengan-fungsi-statistik-dasar---part-1)
+- [Groupby dan Aggregasi dengan Fungsi Statistik Dasar - Part 2](#groupby-dan-aggregasi-dengan-fungsi-statistik-dasar---part-2)
+- [Groupby dan Aggregasi dengan Fungsi Statistik Dasar - Part 3](#groupby-dan-aggregasi-dengan-fungsi-statistik-dasar---part-3)
+- [Groupby dengan Multiple Aggregations](#groupby-dengan-multiple-aggregations)
+- [Groupby dengan Custom Aggregations](#groupby-dengan-custom-aggregations)
+- [Groupby dengan Custom Aggregations by dict](#groupby-dengan-custom-aggregations-by-dict)
+- [Quiz](#quiz-2)
+
 # 1. Penggabungan Series/Dataframe
 ## Pendahuluan
 
@@ -271,11 +282,275 @@ pd.merge(df1, df2, validate="1:1")
 
 # Pivot, Melt, Stack & Unstack
 ## Pendahuluan
-## Dataset 
+Kotak masuk email-ku tak hentinya menerima sejumlah link baru dari Andra untuk bab-bab yang akan kupelajari di modul Pandas part 2 ini. Banyak sekali referensi dari Andra!
+
+“Pivot, Melt, Stack, dan Unstack, apa ini?” gumamku sendiri membaca subject email Andra.
+
+Aku pun bergegas mengaksesnya:
+
+Reference: https://pandas.pydata.org/pandas-docs/stable/user_guide/reshaping.html
+
+Melakukan format ulang pada dataset itu sangatlah penting, biasanya hal ini dilakukan untuk mengetahui keseluruhan data secara cepat dengan chart atau visualisasi. Untuk orang yang sudah mahir menggunakan spreadsheet pastilah tau banyak tentang fitur pivot ini.
+
+Di Pandas, ada beberapa teknik untuk melakukan pivot atau unpivot yang biasa disebut as melt di Pandas, terdapat pula konsep stack yang artinya menumpuk data dengan kolom yang lebih sedikit (stack) sama seperti konsep melt dan ada pula yang memperluas data dengan kolom yang lebih banyak (unstack) sama seperti konsep pivot.
+
+## Dataset
+Untuk memahami konsep pivot, melt, stack, dan unstack pada Pandas mari persiapkan dataset sederhana terlebih dahulu.
+
+![ds](../../pict/dataset1.png)
+
+dengan output:
+
+![ds](../../pict/dataset2.png)
+
+Tugas Praktek:
+
+Carilah unique records/value pada keempat kolom dataframe 'data'.
+
+Jalankanlah dengan menekan tombol . Jika berjalan dengan lancar maka akan memperoleh output di console seperti yang ditunjukkan berikut ini:
+
+![ds](../../pict/dataset3.png)
+
 ## Pivot 
+
+Untuk menerapkan menerapkan method .pivot() pada dataframe dapat dilakukan pada dataframe yang memiliki index tunggal ataupun index-nya adalah multi index.
+
+Untuk dataset yang masih sama, yaitu data.
+
+![ds](../../pict/pivot1.png)
+
+Pivoting dengan single column measurement.
+
+![ds](../../pict/pivot2.png)
+
+dengan output:
+
+![ds](../../pict/pivot3.png)
+
+Pivoting dengan multiple column measurement.
+
+![ds](../../pict/pivot4.png)
+
+dengan output:
+
+![ds](../../pict/pivot5.png)
+
+Penjelasan:
+
+Apa yang berbeda dari kedua code di atas? Pada code pertama di specify values mana yang akan dilakukan pivot sedangkan di kedua tidak specific mana yang akan dilakukan pivot maka Pandas secara default men-treat kolom yang ada selain yang telah di specify as index dan columns as values instead.
+
+Tugas Praktik:
+
+Ketikkanlah kembali kode-kode yang diberikan di atas agar dapat lebih memahami konsep pivoting yang telah diberikan.
+
 ## Pivot_table 
-## Melt - Part 1 
+Apa yang terjadi kalau output pivot tabel memiliki duplicate index? Seperti yang diketahui, index di dataframe adalah unique identifier untuk setiap row, jadi tidak boleh ada duplikat dan setiap membuat pivot tabel, harus specify index as kolom yang mana dan columns-nya memakai kolom yang mana.
+
+Perhatikan contoh yang diilustrasikan berikut ini!
+
+![pvttbl](../../pict/pivot-table1.png)
+
+dengan output:
+
+![pvttbl](../../pict/pivot-table2.png)
+
+Hal ini dapat diatasi dengan melakukan method .pivot_table() pada dataframe. Metode ini sama seperti melakukan pivot pada tabel tapi juga melakukan groupby dan aggregation (aggfunc) pada level rows sehingga dipastikan tidak ada duplicate index di rows (secara default aggfunc = 'mean').
+
+Perhatikan cuplikan berikut ini!
+
+![pvttbl](../../pict/pivot-table3.png)
+
+dengan output:
+
+![pvttbl](../../pict/pivot-table4.png)
+
+Keyword aggfunc yang digunakan pada method .pivot_table() dapat menggunakan nilai berikut:
+
+* sum
+* *'mean'*
+* *'median'*
+
+Tugas Praktek:
+
+Seperti yang dicontohkan untuk meng-create pivot tabel dengan method .pivot_table() tetapi aggfunc yang digunakan adalah 'mean' dan 'median'.
+
+Jalankanlah kode yang telah dibuat dengan menekan , jika tidak ada kesalahan maka output berikut akan diperoleh di console.
+
+![pvttbl](../../pict/pivot-table5.png)
+
+## Melt - Part 1
+
+Teknik melt melalui pd.melt() digunakan untuk mengembalikan kondisi data yang sudah dilakukan pivot menjadi sebelum pivot.
+
+Mari diperhatikan kembali dataframe yang telah digunakan sebelumnya dan dataframenya sudah di pivot.
+
+![melt](../../pict/melt1_1.png)
+
+dengan bentuk dataframe dari output baris ke-11.
+
+![melt](../../pict/melt1_2.png)
+
+Akan melakukan teknik melting pada dataframe output di atas.
+
+[1] Melting dataframe
+
+![melt](../../pict/melt1_3.png)
+
+yang menghasilkan output:
+
+![melt](../../pict/melt1_4.png)
+
+[2] Dengan menspesifikasi keyword argument id_vars yang ditujukan untuk membuat fix kolom yang sebagai id tiap barisnya.
+
+![melt](../../pict/melt1_5.png)
+
+dengan output:
+
+![melt](../../pict/melt1_6.png)
+
+Tugas Praktik:
+
+Kerjakanlah di code editor dengan cara mengisi kode yang tidak lengkap (_ _ _) sesuai dengan yang telah dicontohkan.
+
 ## Melt - Part 2
+Mari melanjutkan ke bagian kedua dari penggunaan teknik melt ini. Mari lihat kembali dataframe yang telah diperoleh melalui pivoting
+
+![melt2](../../pict/melt2_1.png)
+
+dengan bentuk dataframe dari output baris ke-11.
+
+![melt2](../../pict/melt2_2.png)
+
+Lanjutkan dengan melakukan teknik melting pada dataframe output di atas untuk keyword argumen lainnya, yaitu
+
+[3] Dengan menspesifikasikan keyword argument value_vars yang digunakan untuk menampilkan variasi value apa saja yang perlu dimunculkan di kolom variable. 
+
+dengan output:
+
+![melt2](../../pict/melt2_3.png)
+
+[4] Dengan spesifikasikan keyword argument var_name dan value_name yang digunakan untuk menampilkan nama kolom untuk variable dan value.
+
+![melt2](../../pict/melt2_4.png)
+
+dengan output di console:
+
+![melt2](../../pict/melt2_5.png)
+
+Tugas Praktik:
+
+Kerjakanlah di code editor dengan jalan mengisi kode yang tidak lengkap (_ _ _) sesuai dengan yang telah dicontohkan.
+
 ## Stack & Unstack - Part 1
-## Stack & Unstack - Part 2 
+Konsep stacking dan unstacking sama dengan melt dan pivot secara berurutan, hanya saja tidak memasukkan index sebagai parameter di stack/unstack tapi harus set index terlebih dahulu, baru bisa melakukan stacking/unstacking dengan level yang bisa ditentukan sendiri.
+
+Perhatikan kembali dataframe berikut dengan multi index-nya.
+
+![stackunstack](../../pict/stact_unstack1_1.png)
+
+dengan output:
+
+![stackunstack](../../pict/stact_unstack1_2.png)
+
+Mari terapkan bagaimana menggunakan teknik stacking dan unstacking ini pada dataframe multi index 'data':
+
+[1] Unstacking dataframe
+
+![stackunstack](../../pict/stact_unstack1_3.png)
+
+dengan output:
+
+![stackunstack](../../pict/stact_unstack1_4.png)
+
+[2] Unstacking dengan specify level name
+
+![stackunstack](../../pict/stact_unstack1_5.png)
+
+dengan output-nya di console:
+
+![stackunstack](../../pict/stact_unstack1_6.png)
+
+[3] Unstacking dengan specify level position
+
+![stackunstack](../../pict/stact_unstack1_7.png)
+
+dengan output yang diperoleh di console:
+
+![stackunstack](../../pict/stact_unstack1_8.png)
+
+Tugas Praktik:
+
+Kerjakanlah di code editor dengan jalan mengisi kode yang tidak lengkap (_ _ _) sesuai dengan yang telah dicontohkan.
+
+## Stack & Unstack - Part 2
+
+Dalam bagian kedua dari Stack & Unstack ini akan membahas stacking dataframe. Untuk itu, mari diperhatikan dataframe berikut ini:
+
+![stackunstack2](../../pict/stact_unstack2_1.png)
+
+dengan dataframe yang dicetak pada langkah ke-11.
+
+![stackunstack2](../../pict/stact_unstack2_2.png)
+
+[1] Stacking dataframe 
+
+![stackunstack2](../../pict/stact_unstack2_4.png)
+
+dengan output di console:
+
+![stackunstack2](../../pict/stact_unstack2_3.png)
+
+[2] Tukar posisi index setelah stacking dataframe
+
+![stackunstack2](../../pict/stact_unstack2_5.png)
+
+dengan output:
+
+![stackunstack2](../../pict/stact_unstack2_6.png)
+
+[3] Melakukan sort_index pada stacking dataframe
+
+![stackunstack2](../../pict/stact_unstack2_7.png)
+
+
+dengan output yang diperoleh di console:
+
+![stackunstack2](../../pict/stact_unstack2_8.png)
+
+Tugas Praktik:
+
+Kerjakanlah di code editor dengan jalan mengisi kode yang tidak lengkap (_ _ _) sesuai dengan yang telah dicontohkan.
+
+ 
+## Quiz
+Diberikan dataframe:
+
+![quiz](../../pict/quiz_1.png)
+
+Bagaimana cara untuk menghasilkan output seperti di bawah ini?
+
+![quiz](../../pict/quiz_2.png)
+
+# Aggregation & GroupBy
+## Pendahuluan
+Teknik agregasi diperlukan ketika mau melihat dataset dengan view yang berbeda, bisa set data tersebut akan dikelompokkan seperti apa, yang kemudian juga bisa menerapkan beberapa fungsi atau metode statistik ke hasil group dataset itu untuk mengetahui behavior dari data tersebut secara summary/overview.
+
+**Basic Concept of Groupby & Aggregation**
+
+![agg](../../pict/pend_aggre.png)
+
+Groupby memiliki konsep untuk:
+
+Split: melakukan indexing/multi-indexing dengan apa yang di specify as groupby menjadi kelompok
+Apply: menerapkan fungsi pada masing-masing kelompok tersebut
+Combine: mengumpulkan semua hasil fungsi dari tiap kelompok kembali menjadi dataframe
+
+## Review Inspeksi Data
+
+## Groupby dan Aggregasi dengan Fungsi Statistik Dasar - Part 1
+## Groupby dan Aggregasi dengan Fungsi Statistik Dasar - Part 2
+## Groupby dan Aggregasi dengan Fungsi Statistik Dasar - Part 3
+## Groupby dengan Multiple Aggregations
+## Groupby dengan Custom Aggregations
+## Groupby dengan Custom Aggregations by dict
 ## Quiz
