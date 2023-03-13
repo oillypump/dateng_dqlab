@@ -1,4 +1,4 @@
-# Modul Content : Manipulation with Pandas Part 2
+### Modul Content : Manipulation with Pandas Part 2
 [1. Penggabungan Series/Dataframe](#1-penggabungan-seriesdataframe)
 - [Pendahuluan](#pendahuluan)
 - [Bagaimana Cara Menggabungkan Pandas Series/Dataframe?](#bagaimana-cara-menggabungkan-pandas-seriesdataframe)
@@ -30,6 +30,19 @@
 - [Groupby dengan Custom Aggregations](#groupby-dengan-custom-aggregations)
 - [Groupby dengan Custom Aggregations by dict](#groupby-dengan-custom-aggregations-by-dict)
 - [Quiz](#quiz-2)
+
+[4. Time Series in Pandas](#time-series-in-pandas)
+- [Pendahuluan](#pendahuluan-3)
+- [Load Dataset as Time Series](#load-dataset-as-time-series)
+- [Convert to Datetime](#convert-to-datetime)
+- [Resampling untuk Time Series Data](#resampling-untuk-time-series-data)
+- [Downsampling Data](#downsampling-data)
+- [Upsampling Data](#upsampling-data)
+- [Resampling by Frequency](#resampling-by-frequency)
+- [Visualisasi](#visualisasi)
+- [Quiz](#quiz-3)
+- [Penutup](#penutup)
+
 
 # 1. Penggabungan Series/Dataframe
 ## Pendahuluan
@@ -280,7 +293,7 @@ Apa yang akan dihasilkan oleh code ini?
 pd.merge(df1, df2, validate="1:1")
 ```
 
-# Pivot, Melt, Stack & Unstack
+# 2. Pivot, Melt, Stack & Unstack
 ## Pendahuluan
 Kotak masuk email-ku tak hentinya menerima sejumlah link baru dari Andra untuk bab-bab yang akan kupelajari di modul Pandas part 2 ini. Banyak sekali referensi dari Andra!
 
@@ -531,7 +544,7 @@ Bagaimana cara untuk menghasilkan output seperti di bawah ini?
 
 ![quiz](../../pict/quiz_2.png)
 
-# Aggregation & GroupBy
+# 3. Aggregation & GroupBy
 ## Pendahuluan
 Teknik agregasi diperlukan ketika mau melihat dataset dengan view yang berbeda, bisa set data tersebut akan dikelompokkan seperti apa, yang kemudian juga bisa menerapkan beberapa fungsi atau metode statistik ke hasil group dataset itu untuk mengetahui behavior dari data tersebut secara summary/overview.
 
@@ -547,10 +560,467 @@ Combine: mengumpulkan semua hasil fungsi dari tiap kelompok kembali menjadi data
 
 ## Review Inspeksi Data
 
+
+Mari review kembali terkait dengan inspeksi data yang pernah dilakukan pada modul sebelumnya. Akan menggunakan dataset https://storage.googleapis.com/dqlab-dataset/LO4/global_air_quality_4000rows.csv
+
+[1] Load data dari csv
+
+![reviewinspeksidata](../../pict/review_inspeksi_data1.png)
+
+dengan output:
+
+![reviewinspeksidata](../../pict/review_inspeksi_data2.png)
+
+[2] Melakukan pengecekan terhadap data
+
+![reviewinspeksidata](../../pict/review_inspeksi_data3.png)
+
+dengan output:
+
+![reviewinspeksidata](../../pict/review_inspeksi_data4.png)
+
+[3] Melakukan count tanpa groupby
+
+![reviewinspeksidata](../../pict/review_inspeksi_data5.png)
+
+dengan output:
+
+![reviewinspeksidata](../../pict/review_inspeksi_data6.png)
+
+[4] Melakukan count dengan groupby
+
+![reviewinspeksidata](../../pict/review_inspeksi_data7.png)
+
+
+dengan output:
+
+![reviewinspeksidata](../../pict/review_inspeksi_data8.png)
+
+Terdapat perbedaan antara melakukan count dengan groupby dan tanpa groupby:
+
+Terdapat index apa yang di specify as groupby
+Perhitungan jadi berdasarkan apa yang di specify as groupby
+Overall, lebih mudah untuk membaca data summary yang telah di groupby
+
+
 ## Groupby dan Aggregasi dengan Fungsi Statistik Dasar - Part 1
+
+Pada subbab ini akan menerapkan groupby dan fungsi aggregasi mean dan std untuk menentukan nilai rata-rata dan standar deviasi dari masing-masing kelompok data dari dataset https://storage.googleapis.com/dqlab-dataset/LO4/global_air_quality_4000rows.csv dan di assign sebagai variabel gaq.
+
+Akan buat variabel pollutant.
+
+![gby](../../pict/gby1_1.png)
+
+dengan output dataframenya di console:
+
+![gby](../../pict/gby1_2.png)
+
+[1] Group berdasarkan country dan terapkan aggregasi mean, method .mean() setelah penerapan method .groupby() digunakan untuk mencari rata-rata dari tiap kelompok.
+
+![gby](../../pict/gby1_3.png)
+
+dengan output:
+
+![gby](../../pict/gby1_4.png)
+
+[2] Group berdasarkan country dan terapkan aggregasi std, method .std() setelah penerapan method .groupby() digunakan untuk mencari standard deviasi (penyimpangan) dari tiap kelompok.
+
+![gby](../../pict/gby1_5.png)
+
+dengan ouput di console:
+
+![gby](../../pict/gby1_6.png)
+
+
 ## Groupby dan Aggregasi dengan Fungsi Statistik Dasar - Part 2
+
+Akan melanjutkan untuk fungsi statistik lainnya yaitu .sum() dan .nunique() untuk mengaggregasi dataset pollutant setelah di groupby. 
+
+[3] Group berdasarkan country dan terapkan aggregasi sum, method .sum() setelah penerapan method .groupby() digunakan untuk mencari total nilai dari tiap kelompok.
+
+![gby2](../../pict/gby2_1.png)
+
+dengan output:
+
+![gby2](../../pict/gby2_2.png)
+
+[4] Group berdasarkan country dan terapkan aggregasi nunique, method .nunique() setelah penerapan method .groupby() digunakan untuk mencari berapakah jumlah unique value dari tiap kelompok.
+
+![gby2](../../pict/gby2_3.png)
+
+dengan output:
+
+![gby2](../../pict/gby2_4.png)
+
+
 ## Groupby dan Aggregasi dengan Fungsi Statistik Dasar - Part 3
+
+Akan melanjutkan untuk fungsi statistik .min() dan .max() untuk mengaggregasi dataset pollutant setelah di groupby.
+
+[5] Group berdasarkan country dan terapkan aggregasi min, method .min() setelah penerapan method .groupby() digunakan untuk memunculkan nilai terkecil dari tiap kelompok.
+
+![gby2](../../pict/gby3_1.png)
+
+dengan output:
+
+![gby2](../../pict/gby3_2.png)
+
+
+[6] Group berdasarkan country dan terapkan aggregasi max, method .max() setelah penerapan method .groupby() digunakan untuk memunculkan nilai terbesar dari tiap kelompok.
+
+![gby2](../../pict/gby3_3.png)
+
+dengan output:
+
+![gby2](../../pict/gby3_4.png)
+
+Tugas Praktik:
+
+Gunakanlah method .first() dan .last() untuk aggregasi setelah penerapan .groupby() yang masing-masingnya bertujuan untuk memunculkan item pertama dan item terakhir dari tiap kelompok.
+
+Jika kode yang tidak lengkap di code editor telah dengan benar diisi dan dijalankan dengan menekan tombol , diperoleh output berikut:
+
+![gby2](../../pict/gby3_5.png)
+
 ## Groupby dengan Multiple Aggregations
+Kali ini akan menggunakan grouby dengan multiple aggregations yang berupa kombinasi antara beberapa fungsi. Mari perhatikan contoh berikut ini!
+
+![gby2](../../pict/gby_multiple_aggre1.png)
+
+Jika dijalankan dengan menekan   dan output yang diberikan oleh baris ke-9 adalah:
+
+![gby2](../../pict/gby_multiple_aggre2.png)
+
+Tugas Praktik: 
+
+Terapkanlah multiple aggregations pada dataframe pollutant dengan fungsi aggregasinya adalah 'min', 'median', 'mean', 'max'.
+
+Jika dengan benar kodenya ditulis dan kemudian dijalankan dengan menekan , diperoleh output seperti berikut:
+
+![gby2](../../pict/gby_multiple_aggre3.png)
+
+
 ## Groupby dengan Custom Aggregations
+Groupby dengan Custom Aggregations
+Dengan membuat sebuah Python function (user defined) dapat menggunakan sebagai custom aggregation pada dataframe yang telah di groupby.
+
+Perhatikan contoh yang diberikan berikut ini!
+
+![gby2](../../pict/gby_custom_aggre1.png)
+
+
+di sini dibuat sebuah fungsi untuk menentukan range pada setiap kelompok. Jika dijalankan dengan menekan diperoleh output berikut di console:
+
+![gby2](../../pict/gby_custom_aggre2.png)
+
+Tugas Praktek:
+
+Tentukanlah inter quartile range (IQR) pada setiap kelompok data, dan kemudian tampilkanlah 5 data teratas saja.
+
+Jika kodenya berhasil dijalankan maka diperoleh output berikut:
+
+![gby2](../../pict/gby_custom_aggre3.png)
+
+
 ## Groupby dengan Custom Aggregations by dict
+Penggunaan custom aggregation lainnya pada dataframe yang telah di groupby dapat dilakukan dengan mempasskan sebuah dict yang berisi 'key' dict sebagai nama kolomnya dan 'value' dict adalah fungsi untuk aggregasi, baik user defined function atau yang telah tersedia.
+
+Berdasarkan kode berikut ini:
+
+![gby_dict](../../pict/gby_custom_aggre_bydict1.png)
+
+Telah dimiliki dataset yang akan di apply teknik custom aggregation dengan menggunakan dict ini yaitu:
+
+![gby_dict](../../pict/gby_custom_aggre_bydict2.png)
+
+Akan apply teknik custom aggregation pada kolom 'o3' dan 'so' dengan fungsi aggregasi masing-masingnya adalah 'max' dan 'data_range'. Fungsi 'data_range' ini merupakan fungsi yang didefinisikan sendiri (user-defined) untuk menentukan jangkauan (range) data.
+
+![gby_dict](../../pict/gby_custom_aggre_bydict3.png)
+
+dengan output berupa:
+
+![gby_dict](../../pict/gby_custom_aggre_bydict4.png)
+
+Tugas Praktik:
+
+Dengan dataset yang masih sama seperti tersedia di code editor, tentukanlah median untuk kolom 'pm10' serta iqr untuk kolom 'pm25' dan 'so2'. Tampilkan pula 5 data teratas saja.
+
+Jika kode yang ditulis dengan benar kemudian dijalankan dengan menekan , maka akan diperoleh hasil seperti berikut ini:
+
+![gby_dict](../../pict/gby_custom_aggre_bydict5.png)
+
 ## Quiz
+
+Diberikan file 'global_air_quality.csv' jika kode berikut dieksekusi:
+
+![quiz](../../pict/quiz_chapter3.png)
+
+menghasilkan output:
+
+![quiz](../../pict/quiz_2chapter3.png)
+
+Pollutant manakah yang mempunyai rata-rata nilai emisi tertinggi di dunia?
+
+Asumsi: negara yang termasuk di file tersebut sudah semua negara di dunia.
+
+# 4. Time Series in Pandas
+## Pendahuluan
+
+Baru saja aku kelar dengan latihan dan kuis-kuis dari Bab 3, link referensi dari Andra untuk materi selanjutnya seputar “Time Series in Pandas” sudah muncul lagi! 
+
+Tampaknya ini ‘ujian’ baru dari Andra yang ingin menilai kegigihan belajarku. Kutarik nafas panjang. Tidak apa-apa, ini demi jadi data analyst profesional. Aku pantang menyerah!
+
+Aku mengklik link dari Andra dan kembali menelusuri isi materinya:
+
+Ketika berurusan dengan big data, biasanya akan selalu terdapat entitas waktu kapan suatu event itu terjadi, waktu ini digunakan untuk mengenali event itu terjadi pada suatu frame tertentu dan dapat dijadikan index yang membuat setiap event menjadi unique.
+
+Basic format datetime menurut ISO 8601 yaitu YYYY-mm-dd HH:MM:SS.
+
+## Load Dataset as Time Series
+
+Terkadang Pandas salah mengenali object datetime menjadi object string dan pandas menjadi tidak bisa memanfaatkan full benefit dari time index.
+
+Basic format datetime menurut ISO 8601: YYYY-mm-dd HH:MM:SS.
+
+Terdapat beberapa cara untuk mengubah kolom waktu menjadi format yang benar as datetime object di Pandas. 
+
+[1] read_csv, terdapat keyword argument 'parse_dates', yang jika di set True dan set index untuk kolom waktu tersebut maka kolom datetime tersebut akan transform as datetime Pandas dan menjadi index.
+
+![ts](../../pict/ts1.png)
+
+dengan output:
+
+![ts](../../pict/ts2.png)
+
+Tugas Praktik:
+
+Kerjakanlah di code editor dengan jalan mengisi kode yang tidak lengkap (_ _ _) sesuai dengan yang telah dicontohkan.
+
+ 
+
+## Convert to Datetime
+
+Jika dataset yang telah terlebih dahulu atau telah terlanjur di load dengan pd.read_csv dan Pandas salah mengenali object datetime menjadi object string, maka dapat mengubah kolom tertentu dari dataset tersebut menjadi format datetime.
+
+[2] pd.to_datetime digunakan untuk men-transform salah satu kolom di dataframe menjadi datetime Pandas dan kemudian set menjadi index. Mari perhatikan kembali contoh berikut:
+
+![cvt](../../pict/cvrt_datetime1.png)
+
+dengan output:
+
+![cvt](../../pict/cvrt_datetime2.png)
+
+Dataframe awal index-nya masih berupa urutan bilangan bulat dari nol. Kemudian dengan menerapkan pd.to_datetime dan set_index, dataframe sudah memiliki index berupa datetime.
+
+Tugas Praktek:
+
+Kerjakanlah di code editor dengan jalan mengisi kode yang tidak lengkap (_ _ _) sesuai dengan yang telah dicontohkan.
+
+## Resampling untuk Time Series Data
+
+Pandas time series juga memiliki fungsi resampling yang dapat berguna untuk:
+
+**[1] Downsampling**
+
+Mengurangi baris datetime menjadi frekuensi yang lebih lambat, bisa dibilang juga mengurangi rows dataset menjadi lebih sedikit
+
+Contoh: mengubah kolom datetime yang awalnya daily menjadi monthly
+
+**[2] Upsampling**
+
+Kebalikan dari downsampling, menambah baris datetime menjadi frekuensi yang lebih cepat, menambah rows dataset dengan membuat kolom datetime menjadi lebih detail
+
+Contoh: mengubah kolom datetime yang awalnya daily menjadi hourly
+
+Dari resampling ini, kemudian dapat menerapkan metode statistik untuk transform value data yang ada (ex: mean, sum, count, etc).
+
+Tabel resampling untuk time series:
+
+Input       |  Description
+--------    |  ----------------
+'Min', 'T'  |  minute
+'H'         |  hour
+'D'         |  day
+'B'         |  Business day
+'W'         |  week
+'M'         |  month
+'Q'         |  quarter
+'A'         |  year
+
+## Downsampling Data
+
+```
+Info: Predefined code telah diperbarui pada tanggal 25 April 2022, pastikan kode yang telah ditulis disesuaikan kembali.
+```
+
+Sekarang akan dicoba melakukan proses downsampling pada dataset https://storage.googleapis.com/dqlab-dataset/LO4/global_air_quality_4000rows.csv yang telah di load sebelumnya.
+
+Perhatikan dataset awal:
+
+![ds](../../pict/downsamplingdata1.png)
+
+yaitu:
+
+![ds](../../pict/downsamplingdata2.png)
+
+Dengan men-downsampling dari:
+
+[1] Daily to monthly
+
+![ds](../../pict/downsamplingdata3.png)
+
+dengan output:
+
+![ds](../../pict/downsamplingdata4.png)
+
+
+[2] Daily to yearly
+
+![ds](../../pict/downsamplingdata5.png)
+
+
+dengan output:
+
+![ds](../../pict/downsamplingdata6.png)
+
+Tugas Praktek:
+
+Kerjakanlah proses downsampling
+
+Daily to weekly dan apply max
+Daily to quaterly dan apply min
+di code editor dengan jalan mengisi kode yang tidak lengkap (_ _ _).
+
+Jika dengan benar ditulis dan dijalankan dengan menekan , maka diperoleh output berikut di console:
+
+![ds](../../pict/downsamplingdata7.png)
+
+
+## Upsampling Data
+
+Di bagian sebelumnya kita telah melakukan proses downsampling. Proses upsampling akan kita bahas dalam bagian untuk dataset yang masih sama.
+
+![us](../../pict/upsamplingdata1.png)
+
+dengan output:
+
+![us](../../pict/upsamplingdata2.png)
+
+Tugas Praktik:
+
+Kerjakanlah proses upsampling daily to hourly dan apply mean di code editor dengan jalan mengisi kode yang tidak lengkap (_ _ _).
+
+Jika dengan benar ditulis dan dijalankan dengan menekan , maka diperoleh output berikut di console:
+
+![us](../../pict/upsamplingdata3.png)
+
+
+## Resampling by Frequency
+
+Pada bagian ini akan mempelajari bagaimanakah caranya me-resampling data (baik upsampling atau downsampling) berdasarkan frekuensi, misalnya sekali 2 minggu, tiap 12 jam, dsb.
+
+Kondisi awal data yang dimiliki:
+
+![rs](../../pict/resampling1.png)
+
+dengan output:
+
+![rs](../../pict/resampling2.png)
+
+Untuk memahaminya silakan perhatikan contoh berikut ini:
+
+[1] Data ini downsampling dari daily to 2 weekly, kemudian dihitung rata-ratanya, jika ada nilai NaN maka dapat diisi dengan fillna method = 'ffill'
+
+![rs](../../pict/resampling3.png)
+
+dengan output:
+
+![rs](../../pict/resampling4.png)
+
+[2] Selanjutnya, data awal di upsampling dari daily to 8 hourly, kemudian hitung rata-ratanya, jika ada nilai NaN maka dapat di isi dengan fillna method = 'bfill'
+
+![rs](../../pict/resampling5.png)
+
+dengan output:
+
+![rs](../../pict/resampling6.png)
+
+Tugas Praktik:
+
+Kerjakanlah proses data awal resampling dari daily to bi-monthly, kemudian hitung rata-ratanya, jika ada nilai NaN maka dapat diisi dengan fillna method = 'bfill' serta mengisi kode yang tidak lengkap (_ _ _) di code editor.
+
+Jika dengan benar ditulis dan dijalankan dengan menekan , maka diperoleh output berikut di console.
+
+![rs](../../pict/resampling7.png)
+
+
+## Visualisasi
+
+Selanjutnya untuk memvisualisasikan dengan menggunakan library matplotlib dataframe yang telah diolah (seperti yang telah dipelajari dari bab pertama hingga subbab sebelumnya di bab ini).
+
+Terdapat beberapa plot styles yang dapat diterapkan dalam pembuatan visualisasi di matplotlib.
+
+Color                | Marker                | Line
+-------------------- |--------------------   |--------------------
+b: blue              |  o: circle            |  : dotted
+g: green             |  *: star              |  -: dashed
+r: red               |  s: square            
+c: cyan              |  +: plus
+
+Visualisasi tentang average jumlah masing-masing polutan berdasarkan bulan waktunya.
+
+
+![vis](../../pict/vis1.png)
+ 
+
+[1] Membuat pivot table yang menunjukkan waktu di barisnya dan masing-masing value dari pollutant-nya dalam kolom.
+
+![vis](../../pict/vis2.png)
+
+
+dengan output:
+
+![vis](../../pict/vis3.png)
+
+[2] Membuat fungsi yang memberikan default value 0 ketika value-nya di bawah 0 dan apply ke setiap elemen dari dataset tersebut, kemudian menampilkannya sebagai chart.
+
+![vis](../../pict/vis4.png)
+
+dengan output:
+
+![vis](../../pict/vis5.png)
+
+Tugas Praktik:
+
+Kerjakanlah di code editor dengan mengisi kode yang tidak lengkap (_ _ _) sesuai dengan yang telah dicontohkan.
+
+ 
+
+ 
+
+## Quiz
+
+Untuk dataset global_air_quality.csv yang telah di-load ke dalam data frame gaq.
+
+Andra memintaku untuk menentukan trend dari rata-rata tahunan pollutant SO2 (kolom pollutant) yang dihitung berdasarkan value SO2 (kolom value).
+
+Apa yang harus aku lakukan untuk membantu Andra ini?
+
+## Penutup
+
+Aku sedang asik mempraktikkan beberapa fungsi dan mengerjakan latihan soal di modul saat Andra memanggilku.
+
+“Sudah cukup paham dengan modul Pandas part 2 ini, Aksara? Kalau saya perhatikan, kamu serius banget dari tadi. Sudah belajar apa saja?”
+
+
+“Iya, aku tadi lagi nyoba nyelesein project end to end dari extracting data, load dataset, sampai manipulating data. Kalau sekarang lagi latihan menyimpan data ke dalam output yang sesuai. Lebih rumit dari yang kemarin, tapi masih ngerti, Ndra,” jelasku bersemangat.
+
+Tak kusangka materi tentang Pandas ini seru sekali walau cukup padat. Seru karena aku tahu Pandas sangat implementatif dalam mengerjakan proyek-proyek data perusahaan. Banyaknya materi yang sempat kukeluhkan di awal jadi enggak terasa!
+Aku mendapati Andra tersenyum tipis mendengar poin-poin yang sudah berhasil kupelajari.
+Kalau dari responsnya, mungkinkah bakal ada proyek baru untukku?
+
+
+“Apa yang kamu pelajari barusan akan sangat berguna dalam proyek analisis data nantinya dan jadi bekal kamu mempelajari machine learning nanti. Keep learning, Aksara. Saya sedang mempertimbangkan satu proyek untuk dipercayakan padamu lagi.”
+
+
+“My pleasure!” sahutku langsung. Tak ada yang penerapan ilmu yang lebih baik daripada praktik kerja langsung bukan?
