@@ -247,7 +247,7 @@ Pada bagian ini, akan membahas data cleansing dari treatment terhadap missing da
 ## Missing Data
 Dataset yang ditemui di real-world biasanya akan memiliki banyak missing value. Kemampuan untuk treatment missing value sangat penting karena jika membiarkan missing value itu dapat memengaruhi analisis dan machine learning model. Sehingga jika menemukan nilai yang hilang dalam dataset, harus melakukan treatment sedemikian rupa. Cara check kolom yang mempunyai missing value:
 
-![md](../../../pict/missingdata1.png)
+![md](../../pict/missingdata1.png)
 
 Cara treatment terhadap missing-value antara lain:
 
@@ -257,7 +257,7 @@ Cara treatment terhadap missing-value antara lain:
 
 **Imputasi** merupakan suatu metode treatment terhadap missing value dengan mengisinya menggunakan teknik tertentu. Bisa menggunakan mean, modus ataupun menggunakan predictive modelling. Pada modul ini akan membahas mengenai pemanfaatan function **fillna** dari Pandas untuk imputasi ini, yaitu
 
-![md](../../../pict/missingdata2.png)
+![md](../../pict/missingdata2.png)
 
 .function() yang dimaksud pada syntax di atas adalah penggunan fungsi .mean() atau .mode(). Penggunaan fungsi .mean() atau .mode() ini bergantung pada kondisi yang mengharuskan menggunakan nilai rata - rata atau modus dari kolom yang akan diimputasi, seperti
 ```
@@ -270,7 +270,7 @@ nama_dataframe['nama_kolom'].fillna(nama_dataframe.nama_kolom.mode())
 
 Drop row yang mengandung missing value. Dapat menggunakan function dropna dari Pandas.
 
-![md](../../../pict/missingdata3.png)
+![md](../../pict/missingdata3.png)
 
 Untuk menangani missing data pada retail_raw, 
 
@@ -280,7 +280,7 @@ Untuk menangani missing data pada retail_raw,
 
 Jika ditulis dengan benar dan dijalankan dengan menekan  diperoleh output berikut: 
 
-![md](../../../pict/missingdata4.png)
+![md](../../pict/missingdata4.png)
 
 
 **Note**: Screen shoot untuk "Filling the missing value (imputasi):" dan "Drop missing value:" menunjukkan jumlah baris yang berbeda pada kolom quantity. Proses imputasi tentunya akan mempertahankan jumlah baris dari data karena missing value diisi dengan suatu nilai yang pada kasus kita ini menggunakan nilai rata-rata kolom bersangkutan. Sementara drop missing value tentu akan membuang baris yang memiliki missing value yang mengakibatkan jumlah baris data berkurang.
@@ -298,7 +298,7 @@ Aku mengangguk mantap. Aku tak mungkin bertanya pada Kroma dan memintanya mengaj
 
 Jika dengan benar telah dituliskan kodenya dan dijalankan dengan  diperoleh output seperti berikut:
 
-![md](../../../pict/tugas_missing_data1.png)
+![md](../../pict/tugas_missing_data1.png)
 
 ## Outliers
 Outliers merupakan data observasi yang muncul dengan nilai-nilai ekstrim. Yang dimaksud dengan nilai-nilai ekstrim dalam observasi adalah nilai yang jauh atau beda sama sekali dengan sebagian besar nilai lain dalam kelompoknya.
@@ -319,20 +319,20 @@ Rumus dasar dari IQR: Q3 - Q1, dan data suatu observasi dapat dikatakan outliers
 
 Syntax di Python:
 
-![dc](../../../pict/outliers1.png)
+![dc](../../pict/outliers1.png)
 
 
 Kemudian untuk membuang outliers-nya:
 
-![dc](../../../pict/outliers2.png)
+![dc](../../pict/outliers2.png)
 
 Mari melihat penggunaannya pada dataframe retail_raw untuk kolom quantity:
 
-![dc](../../../pict/outliers3.png)
+![dc](../../pict/outliers3.png)
 
 Ukuran dataframe retail_raw sebelum dan setelah dibuang outliers pada kolom quantity yaitu:
 
-![dc](../../../pict/outliers4.png)
+![dc](../../pict/outliers4.png)
 
 Note: Langsung di-submit saja ya tanpa di-run :)
 
@@ -346,11 +346,11 @@ Duplikasi data merupakan data dengan kondisi pada row-row tertentu memiliki kesa
 
 Untuk mengecek duplikasi data:
 
-![dc](../../../pict/deduplikasi_data.png)
+![dc](../../pict/deduplikasi_data.png)
 
 Syntax untuk membuang duplikasi:
 
-![dc](../../../pict/deduplikasi_data2.png)
+![dc](../../pict/deduplikasi_data2.png)
 
 ## Tugas Praktek
 Terakhir lagi menuju selesai! Aku tinggal membuang duplikasi data dari dataset retail_raw.
