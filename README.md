@@ -17,11 +17,11 @@
 
 - [x] [5. Data Quality with Python for Beginner](Python/Data_Quality_with_Python_for_Beginner/readme.md)
 
-- [ ] [6. Data Manipulation with Pandas](Python/readme.md)
+- [x] [6. Data Manipulation with Pandas](Python/readme.md)
     
     - [x] [Data Manipulation with Pandas - Part 1](Python/Data_Manipulation_with_Pandas_-_Part_1/readme.md)
 
-    - [ ] [Data Manipulation with Pandas - Part 2](Python/Data_Manipulation_with_Pandas_-_Part_2/readme.md)
+    - [x] [Data Manipulation with Pandas - Part 2](Python/Data_Manipulation_with_Pandas_-_Part_2/readme.md)
 
 - [ ] [7. Data Science in Telco](Python/readme.md)
 
