@@ -110,7 +110,118 @@ Diketahui bahwa nama tim merupakan gabungan nilai dari kolom first_name, last_na
 Tugas Anda yakni buatlah kolom baru dengan nama team_name yang memuat informasi nama tim dari peserta.
 
 ## Transform Bagian VI - Email
+
+Setelah dilihat kembali dari data peserta yang dimiliki, ternyata ada satu informasi yang penting namun belum tersedia, yaitu email.
+
+Anda sebagai Data Engineer diminta untuk menyediakan informasi email dari peserta dengan aturan bahwa format email sebagai berikut:
+
+Format email:
+xxyy@aa.bb.[ac/com].[cc]
+
+```
+Keterangan:
+xx -> nama depan (first_name) dalam lowercase
+yy -> nama belakang (last_name) dalam lowercase
+aa -> nama institusi
+
+Untuk nilai bb, dan cc mengikuti nilai dari aa. Aturannya:
+- Jika institusi nya merupakan Universitas, maka
+  bb -> gabungan dari huruf pertama pada setiap kata dari nama Universitas dalam lowercase
+  Kemudian, diikuti dengan .ac yang menandakan akademi/institusi belajar dan diikuti dengan pattern cc
+- Jika institusi bukan merupakan Universitas, maka
+  bb -> gabungan dari huruf pertama pada setiap kata dari nama Universitas dalam lowercase
+  Kemudian, diikuti dengan .com. Perlu diketahui bahwa pattern cc tidak berlaku pada kondisi ini
+
+cc -> merupakan negara asal peserta, adapun aturannya:
+- Jika banyaknya kata pada negara tersebut lebih dari 1 maka ambil singkatan dari negara tersebut dalam lowercase
+- Namun, jika banyaknya kata hanya 1 maka ambil 3 huruf terdepan dari negara tersebut dalam lowercase
+
+Contoh:
+  Nama depan: Citra
+  Nama belakang: Nurdiyanti
+  Institusi: UD Prakasa Mandasari
+  Negara: Georgia
+  Maka,Email nya: citranurdiyanti@upm.geo
+  -----------------------------------
+  Nama depan: Aris
+  Nama belakang: Setiawan
+  Institusi: Universitas Diponegoro
+  Negara: Korea Utara
+  Maka, Email nya: arissetiawan@ud.ac.ku
+```
+
 ## Transform Bagian VII - Tanggal Lahir
+
+MySQL merupakan salah satu database yang sangat populer dan digunakan untuk menyimpan data berupa tabel, termasuk data hasil pengolahan yang sudah kita lakukan ini nantinya bisa dimasukkan ke MySQL.
+
+Meskipun begitu, ada suatu aturan dari MySQL terkait format tanggal yang bisa mereka terima yaitu YYYY-MM-DD dengan keterangan:
+
+* YYYY: 4 digit yang menandakan tahun
+* MM: 2 digit yang menandakan bulan
+* DD: 2 digit yang menandakan tanggal
+Contohnya yaitu: 2021-04-07
+
+Jika kita lihat kembali pada kolom tanggal lahir terlihat bahwa nilainya belum sesuai dengan format DATE dari MySQL
+
+(Lihat lebih detail di [sini](https://www.mysqltutorial.org/mysql-date/).).
+
+Oleh karena itu, lakukanlah formatting terhadap kolom birth_date menjadi YYYY-MM-DD dan simpan di kolom yang sama.
+
 ## Transform Bagian VII - Tanggal Daftar Kompetisi
+
+Selain punya aturan mengenai format DATE, MySQL juga memberi aturan pada data yang bertipe DATETIME yaitu YYYY-MM-DD HH:mm:ss dengan keterangan:
+
+YYYY: 4 digit yang menandakan tahun
+MM: 2 digit yang menandakan bulan
+DD: 2 digit yang menandakan tanggal
+HH: 2 digit yang menandakan jam
+mm: 2 digit yang menandakan menit
+ss: 2 digit yang menandakan detik
+Contohnya yaitu: 2021-04-07 15:10:55
+
+Karena data kita mengenai waktu registrasi peserta (register_time) belum sesuai format yang seharusnya.
+
+Maka dari itu, tugas Anda yaitu untuk merubah register_time ke format DATETIME sesuai dengan aturan dari MySQL.
+
+Simpanlah hasil tersebut ke kolom register_at.
+
 ## Kesimpulan
+
+Dengan begitu, tibalah kita di penghujung dari chapter bagian transform ini.
+
+Jika dilihat kembali, dataset Anda saat ini sudah berbeda dengan saat proses extract sebelumnya. Ada beberapa kolom tambahan yang memanfaatkan nilai kolom lain.
+
+Dataset Anda saat ini memuat kolom:
+
+1. **participant_id**: ID dari peserta/partisipan hackathon. Kolom ini bersifat unique 2.sehingga antar peserta pasti memiliki ID yang berbeda
+2. **first_name**: nama depan peserta
+3. **last_name**: nama belakang peserta
+4. **birth_date**: tanggal lahir peserta (sudah diformat ke YYYY-MM-DD)
+5. **address**: alamat tempat tinggal peserta
+6. **phone_number**: nomor hp/telepon peserta
+7. **country**: negara asal peserta
+8. **institute**: institusi peserta saat ini, bisa berupa nama perusahaan maupun nama universitas
+9. **occupation**: pekerjaan peserta saat ini
+10. **register_time**: waktu peserta melakukan pendaftaran hackathon dalam second
+11. **team_name**: nama tim peserta (gabungan dari nama depan, nama belakang, negara dan institusi)
+12. **postal_code**: kode pos alamat peserta (diambil dari kolom alamat)
+13. **city**: kota peserta (diambil dari kolom alamat)
+14. **github_profile**: link profil github peserta (gabungan dari nama depan, dan nama belakang)
+15. **email**: alamat email peserta (gabungan dari nama depan, nama belakang, institusi dan negara)
+16. **cleaned_phone_number**: nomor hp/telepon peserta (sudah lebih sesuai dengan format nomor telepon)
+17. **register_at**: tanggal dan waktu peserta melakukan pendaftaran (sudah dalam format DATETIME)
+
 ## Load
+
+Pada bagian load ini, data yang sudah ditransformasi sedemikian rupa sehingga sesuai dengan kebutuhan tim analyst dimasukkan kembali ke database yaitu Data Warehouse (DWH). Biasanya, dilakukan pendefinisian skema database terlebih dahulu seperti:
+
+1. Nama kolom
+2. Tipe kolom
+3. Apakah primary key, unique key, index atau bukan
+4. Panjang kolomnya
+
+Karena umumnya Data Warehouse merupakan database yang terstruktur sehingga mereka memerlukan skema sebelum datanya dimasukkan.
+
+Pandas sudah menyediakan fungsi untuk memasukkan data ke database yaitu to_sql().
+
+Detail dari fungsi tersebut bisa dilihat pada dokumentasi Pandas: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html
