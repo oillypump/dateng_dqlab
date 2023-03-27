@@ -23,7 +23,7 @@
 
     - [x] [Data Manipulation with Pandas - Part 2](Python/Data_Manipulation_with_Pandas_-_Part_2/readme.md)
 
-- [x] [7. Data Science in Telco](Python/readme.md)
+- [x] [7. Data Science in Telco](Python/Data_Science_in_Telco_%3A_Data_Cleansing/readme.md)
 
 - [x] [8. Data Engineer Challenge SQL](SQL/readme.md)
 

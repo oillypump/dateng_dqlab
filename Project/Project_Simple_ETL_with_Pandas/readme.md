@@ -3,19 +3,23 @@
 - [Project yang Akan Dikerjakan](#project-yang-akan-dikerjakan)
 
 [2. Transform Data](#2-transform-data)
-[Extract](#extract)
-[Transform](#transform)
-[Transform Bagian I - Kode Pos](#transform-bagian-i---kode-pos)
-[Transform Bagian II - Kota](#transform-bagian-ii---kota)
-[Transform Bagian III - Github](#transform-bagian-iii---github)
-[Transform Bagian IV - Nomor Handphone](#transform-bagian-iv---nomor-handphone)
-[Transform Bagian V - Nama Tim](#transform-bagian-v---nama-tim)
-[Transform Bagian VI - Email](#transform-bagian-vi---email)
-[Transform Bagian VII - Tanggal Lahir](#transform-bagian-vii---tanggal-lahir)
-[Transform Bagian VII - Tanggal Daftar Kompetisi](#transform-bagian-vii---tanggal-daftar-kompetisi)
-[Kesimpulan](#kesimpulan)
-[Load](#load)
+- [Extract](#extract)
+- [Transform](#transform)
+- [Transform Bagian I - Kode Pos](#transform-bagian-i---kode-pos)
+- [Transform Bagian II - Kota](#transform-bagian-ii---kota)
+- [Transform Bagian III - Github](#transform-bagian-iii---github)
+- [Transform Bagian IV - Nomor Handphone](#transform-bagian-iv---nomor-handphone)
+- [Transform Bagian V - Nama Tim](#transform-bagian-v---nama-tim)
+- [Transform Bagian VI - Email](#transform-bagian-vi---email)
+- [Transform Bagian VII - Tanggal Lahir](#transform-bagian-vii---tanggal-lahir)
+- [Transform Bagian VII - Tanggal Daftar Kompetisi](#transform-bagian-vii---tanggal-daftar-kompetisi)
+- [Kesimpulan](#kesimpulan)
+- [Load](#load)
 
+[3. Quiz](#3-quiz) 
+- [Quiz 1](#quiz-1)
+- [Quiz 2](#quiz-2)
+- [Quiz 3](#quiz-3)
 
 # 1. Pengantar
 ## Pengantar
@@ -59,6 +63,7 @@ Namun pada proyek ini nantinya Anda diminta untuk menghasilkan beberapa kolom de
 Sebagai pemanasan dalam proyek ini, Anda dipersilakan untuk membuka isi datasetnya dan melihat values-nya. Jika sudah siap dengan perjalanan di proyek ini, silakan klik Next.
 
 # 2. Transform Data
+
 ## Extract
 
 ## Transform
@@ -225,3 +230,9 @@ Karena umumnya Data Warehouse merupakan database yang terstruktur sehingga merek
 Pandas sudah menyediakan fungsi untuk memasukkan data ke database yaitu to_sql().
 
 Detail dari fungsi tersebut bisa dilihat pada dokumentasi Pandas: https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html
+
+
+# 3. Quiz
+## Quiz 1
+## Quiz 2
+## Quiz 3
