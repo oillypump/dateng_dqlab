@@ -233,6 +233,18 @@ Detail dari fungsi tersebut bisa dilihat pada dokumentasi Pandas: https://pandas
 
 
 # 3. Quiz
+
 ## Quiz 1
+
+Selain menggunakan pd.read_csv() untuk membaca file pada Pandas. Apa sajakah fungsi yang bisa digunakan?
+
 ## Quiz 2
+Regular Expression yang paling tepat untuk menangkap pattern com yang merupakan domain email dari string
+professional.academy@dqlab.com adalah?
+
 ## Quiz 3
+Kita tahu bahwa kolom participant_id pada dataset Peserta DQThon terdiri dari kumpulan huruf dan angka serta simbol strip ( - ).
+
+Jika kita hanya ingin menyisakan angkanya saja, kode program manakah dibawah ini yang tepat untuk melakukan hal itu?
+
+*Note: hasil dari transformasi ini disimpan ke kolom baru bernama participant_number)
